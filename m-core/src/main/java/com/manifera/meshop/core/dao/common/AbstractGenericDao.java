@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
  * 
  */
 
-public abstract class AbstractGenericDao<T> implements GenericDao<T> {
+public abstract class AbstractGenericDao<T,  ID extends Serializable> implements GenericDao<T, ID> {
 	
 	@PersistenceContext(unitName="ms-corePU")
 	private EntityManager entityManager;
@@ -45,7 +45,7 @@ public abstract class AbstractGenericDao<T> implements GenericDao<T> {
 	}
 	
 	@Override
-	public T get(Serializable id) {
+	public T get(ID id) {
 		return entityManager.find(getDomainClass(), id);
 	}
 	
@@ -73,7 +73,7 @@ public abstract class AbstractGenericDao<T> implements GenericDao<T> {
 	}
 	
 	@Override
-	public void deleteById(Serializable id) {
+	public void deleteById(ID id) {
 		delete(get(id));
 	}
 	
@@ -93,7 +93,7 @@ public abstract class AbstractGenericDao<T> implements GenericDao<T> {
 	}
 	
 	@Override
-	public boolean exists(Serializable id) {
+	public boolean exists(ID id) {
 		return get(id) != null;
 	}
 	

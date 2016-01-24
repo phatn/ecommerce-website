@@ -9,11 +9,11 @@ import java.util.List;
  * 
  */
 
-public interface GenericDao<T> {
+public interface GenericDao<T, ID extends Serializable> {
 	
 	void create(T t);
 	
-	T get(Serializable id);
+	T get(ID id);
 	
 	List<T> getAll();
 	
@@ -23,12 +23,12 @@ public interface GenericDao<T> {
 	
 	void delete(T t);
 	
-	void deleteById(Serializable id);
+	void deleteById(ID id);
 	
 	void deleteAll();
 	
 	long count();
 	
-	boolean exists(Serializable id);
+	boolean exists(ID id);
 	
 }
