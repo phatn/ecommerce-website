@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	
+	<!-- Master Layout -->
+	<definition name="master-layout" template="/WEB-INF/tiles/templates/shop/master-layout.jsp">
+		<put-attribute name="title" value="MyEshop" />
+		<put-attribute name="top-bar" value="/WEB-INF/tiles/templates/shop/top-bar.jsp" />
+		<put-attribute name="nav-bar" value="/WEB-INF/tiles/templates/shop/nav-bar.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/templates/shop/footer.jsp" />
+		<put-attribute name="copyright" value="/WEB-INF/tiles/templates/shop/copyright.jsp" />
+	</definition>
+	
+	<!-- Home -->
+	<definition name="home" extends="master-layout">
+		<put-attribute name="title" value="MyEshop - Home" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/content.jsp" />
+	</definition>
+	
+</tiles-definitions>

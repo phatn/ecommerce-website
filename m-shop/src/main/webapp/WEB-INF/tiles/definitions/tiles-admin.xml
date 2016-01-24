@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="adminMainLayout" template="/WEB-INF/tiles/template/admin/adminMainLayout.jsp">
+		<put-attribute name="title" value="MyEshop - Admin" />
+		<!-- <put-attribute name="topBar" value="/WEB-INF/tiles/template/client/topBar.jsp" /> -->
+		<put-attribute name="adminHeader" value="/WEB-INF/tiles/template/admin/adminHeader.jsp" />
+		<put-attribute name="leftSide" value="/WEB-INF/tiles/template/admin/leftSide.jsp" />
+		<put-attribute name="adminContent" value="" />
+		<!-- <put-attribute name="footer" value="/WEB-INF/tiles/template/client/footer.jsp" /> -->
+	</definition>
+	
+	<definition name="dashboard" extends="adminMainLayout">
+		<put-attribute name="title" value="MyEshop - Dashboard" />
+		<put-attribute name="adminContent" value="/WEB-INF/views/admin/dashboard.jsp" />
+	</definition>
+	
+	<definition name="adminCategory" extends="adminMainLayout">
+		<put-attribute name="title" value="MyEshop - Category" />
+		<put-attribute name="adminContent" value="/WEB-INF/views/admin/adminCategory.jsp" />
+	</definition>
+	
+	<definition name="editCategory" extends="adminMainLayout">
+		<put-attribute name="title" value="MyEshop - Edit Category" />
+		<put-attribute name="adminContent" value="/WEB-INF/views/admin/editCategory.jsp" />
+	</definition>
+	
+	<definition name="createCategory" extends="adminMainLayout">
+		<put-attribute name="title" value="MyEshop - Create Category" />
+		<put-attribute name="adminContent" value="/WEB-INF/views/admin/createCategory.jsp" />
+	</definition>
+	
+	<definition name="home" extends="mainLayout">
+		<put-attribute name="title" value="MyEshop - Home" />
+		<put-attribute name="topLeftBanner" value="/WEB-INF/tiles/template/client/topLeftBanner.jsp" />
+		<put-attribute name="topRightBanner" value="/WEB-INF/tiles/template/client/topRightBanner.jsp" />
+		<put-attribute name="mainContent" value="/WEB-INF/views/client/home.jsp" />
+	</definition>
+	
+	<definition name="products" extends="mainLayout">
+		<put-attribute name="title" value="MyEshop - Products" />
+		<put-attribute name="topLeftBanner" value="" />
+		<put-attribute name="topRightBanner" value="" />
+		<put-attribute name="mainContent" value="/WEB-INF/views/client/products.jsp" />
+	</definition>
+	
+	<definition name="product" extends="mainLayout">
+		<put-attribute name="title" value="MyEshop - Product" />
+		<put-attribute name="topLeftBanner" value="" />
+		<put-attribute name="topRightBanner" value="" />
+		<put-attribute name="mainContent" value="/WEB-INF/views/client/product.jsp" />
+	</definition>
+	
+</tiles-definitions>

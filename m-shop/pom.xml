@@ -14,21 +14,16 @@
 
 	<properties>
 		<m-core.version>1.0.0</m-core.version>
-		<spring.version>4.2.1.RELEASE</spring.version>
 		<spring-aspect.version>4.2.1.RELEASE</spring-aspect.version>
 		<jstl.version>1.2</jstl.version>
-		
 		<javax.version>1</javax.version>
-		
 		<servlet.version>3.1.0</servlet.version>
 		<log4j.version>1.2.12</log4j.version>
-		<tiles.version>3.0.3</tiles.version>
-		<spring.security.version>3.2.4.RELEASE</spring.security.version>
+		<tiles.version>3.0.5</tiles.version>
+		<spring.security.version>4.0.3.RELEASE</spring.security.version>
 		<junit.version>4.11</junit.version>
-		
 		<urlrewritefilter.version>4.0.4</urlrewritefilter.version>
 		<cglib.version>3.1</cglib.version>
-		
 		<jetty-maven-plugin.version>8.1.1.v20120215</jetty-maven-plugin.version>
 		<ehcache.version>2.10.0</ehcache.version>	
 		<javax.el-api.version>2.2.4</javax.el-api.version>	
@@ -40,6 +35,14 @@
 	</properties>
 
 		<dependencies>
+		
+		<!-- m-core -->
+		<dependency>
+			<groupId>com.manifera</groupId>
+			<artifactId>m-core</artifactId>
+			<version>${m-core.version}</version>
+		</dependency>
+		
 		<!-- Spring framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -60,16 +63,16 @@
 		</dependency>
 		
 		<!-- Spring security -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${spring.security.version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
-		</dependency>
+		</dependency> 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -188,7 +191,7 @@
 	</dependencies>
 
 	<build>
-    	<finalName>${pom.artifactId}-${pom.version}</finalName>
+    	<finalName>${project.artifactId}-${project.version}</finalName>
     	
     	<plugins>
     	
