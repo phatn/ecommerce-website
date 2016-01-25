@@ -7,8 +7,8 @@
 
 	<div class="navbar-header">
         <a class="navbar-brand home" href="index.html" data-animate-hover="bounce">
-            <img src="img/logo.png" alt="Obaju logo" class="hidden-xs">
-            <img src="img/logo-small.png" alt="Obaju logo" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
+            <img src="<c:url value='/resources/img/logo.png' />" alt="Obaju logo" class="hidden-xs">
+            <img src="<c:url value='/resources/img/logo-small.png' /> " alt="Obaju logo" class="visible-xs"><span class="sr-only">Obaju - go to homepage</span>
         </a>
         <div class="navbar-buttons">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
@@ -168,12 +168,12 @@
                                 <div class="col-sm-3">
                                     <div class="banner">
                                         <a href="#">
-                                            <img src="img/banner.jpg" class="img img-responsive" alt="">
+                                            <img src="<c:url value='/resources/img/banner.jpg' />" class="img img-responsive" alt="">
                                         </a>
                                     </div>
                                     <div class="banner">
                                         <a href="#">
-                                            <img src="img/banner2.jpg" class="img img-responsive" alt="">
+                                            <img src="<c:url value='/resources/img/banner2.jpg' /> " class="img img-responsive" alt="">
                                         </a>
                                     </div>
                                 </div>
