@@ -2,131 +2,139 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@	taglib prefix="spring"	uri="http://www.springframework.org/tags" %>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 col-sm-6">
-            <h4>Pages</h4>
+            <div class="container">
+                <div class="col-md-3 col-sm-6">
+                    <h4>About us</h4>
 
-            <ul>
-                <li><a href="text.html">About us</a>
-                </li>
-                <li><a href="text.html">Terms and conditions</a>
-                </li>
-                <li><a href="faq.html">FAQ</a>
-                </li>
-                <li><a href="contact.html">Contact us</a>
-                </li>
-            </ul>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
-            <hr>
+                    <hr>
 
-            <h4>User section</h4>
+                    <h4>Join our monthly newsletter</h4>
 
-            <ul>
-                <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
-                </li>
-                <li><a href="register.html">Regiter</a>
-                </li>
-            </ul>
+                    <form>
+                        <div class="input-group">
 
-            <hr class="hidden-md hidden-lg hidden-sm">
+                            <input type="text" class="form-control">
 
-        </div>
-        <!-- /.col-md-3 -->
+                            <span class="input-group-btn">
 
-        <div class="col-md-3 col-sm-6">
+                        <button class="btn btn-default" type="button"><i class="fa fa-send"></i></button>
 
-            <h4>Top categories</h4>
+                    </span>
 
-            <h5>Men</h5>
+                        </div>
+                        <!-- /input-group -->
+                    </form>
 
-            <ul>
-                <li><a href="category.html">T-shirts</a>
-                </li>
-                <li><a href="category.html">Shirts</a>
-                </li>
-                <li><a href="category.html">Accessories</a>
-                </li>
-            </ul>
+                    <hr class="hidden-md hidden-lg hidden-sm">
 
-            <h5>Ladies</h5>
-            <ul>
-                <li><a href="category.html">T-shirts</a>
-                </li>
-                <li><a href="category.html">Skirts</a>
-                </li>
-                <li><a href="category.html">Pants</a>
-                </li>
-                <li><a href="category.html">Accessories</a>
-                </li>
-            </ul>
+                </div>
+                <!-- /.col-md-3 -->
 
-            <hr class="hidden-md hidden-lg">
+                <div class="col-md-3 col-sm-6">
 
-        </div>
-        <!-- /.col-md-3 -->
+                    <h4>Blog</h4>
 
-        <div class="col-md-3 col-sm-6">
+                    <div class="blog-entries">
+                        <div class="item same-height-row clearfix">
+                            <div class="image same-height-always">
+                                <a href="#">
+                                    <img class="img-responsive" src="<c:url value='/resources/img/detailsquare.jpg' /> " alt="">
+                                </a>
+                            </div>
+                            <div class="name same-height-always">
+                                <h5><a href="#">Blog post name</a></h5>
+                            </div>
+                        </div>
 
-            <h4>Where to find us</h4>
+                        <div class="item same-height-row clearfix">
+                            <div class="image same-height-always">
+                                <a href="#">
+                                    <img class="img-responsive" src="<c:url value='/resources/img/detailsquare.jpg' /> " alt="">
+                                </a>
+                            </div>
+                            <div class="name same-height-always">
+                                <h5><a href="#">Blog post name</a></h5>
+                            </div>
+                        </div>
 
-            <p><strong>Obaju Ltd.</strong>
-                <br>13/25 New Avenue
-                <br>New Heaven
-                <br>45Y 73J
-                <br>England
-                <br>
-                <strong>Great Britain</strong>
-            </p>
+                        <div class="item same-height-row clearfix">
+                            <div class="image same-height-always">
+                                <a href="#">
+                                    <img class="img-responsive" src="<c:url value='/resources/img/detailsquare.jpg' /> " alt="">
+                                </a>
+                            </div>
+                            <div class="name same-height-always">
+                                <h5><a href="#">Very very long blog post name</a></h5>
+                            </div>
+                        </div>
+                    </div>
 
-            <a href="contact.html">Go to contact page</a>
+                    <hr class="hidden-md hidden-lg">
 
-            <hr class="hidden-md hidden-lg">
+                </div>
+                <!-- /.col-md-3 -->
 
-        </div>
-        <!-- /.col-md-3 -->
+                <div class="col-md-3 col-sm-6">
 
+                    <h4>Contact</h4>
 
+                    <p><strong>Universal Ltd.</strong>
+                        <br>13/25 New Avenue
+                        <br>Newtown upon River
+                        <br>45Y 73J
+                        <br>England
+                        <br>
+                        <strong>Great Britain</strong>
+                    </p>
 
-                 <div class="col-md-3 col-sm-6">
+                    <a href="contact.html" class="btn btn-small btn-template-main">Go to contact page</a>
 
-                     <h4>Get the news</h4>
+                    <hr class="hidden-md hidden-lg hidden-sm">
 
-                     <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-
-                     <form>
-                         <div class="input-group">
-
-                             <input type="text" class="form-control">
-
-                             <span class="input-group-btn">
-
-    <button class="btn btn-default" type="button">Subscribe!</button>
-
-</span>
-
-                         </div>
-                         <!-- /input-group -->
-            </form>
-
-            <hr>
-
-            <h4>Stay in touch</h4>
-
-            <p class="social">
-                <a href="#" class="facebook external" data-animate-hover="shake"><i class="fa fa-facebook"></i></a>
-                <a href="#" class="twitter external" data-animate-hover="shake"><i class="fa fa-twitter"></i></a>
-                <a href="#" class="instagram external" data-animate-hover="shake"><i class="fa fa-instagram"></i></a>
-                <a href="#" class="gplus external" data-animate-hover="shake"><i class="fa fa-google-plus"></i></a>
-                <a href="#" class="email external" data-animate-hover="shake"><i class="fa fa-envelope"></i></a>
-            </p>
+                </div>
+                <!-- /.col-md-3 -->
 
 
-        </div>
-        <!-- /.col-md-3 -->
 
-    </div>
-    <!-- /.row -->
+                <div class="col-md-3 col-sm-6">
 
-</div>
-<!-- /.container -->
+                    <h4>Photostream</h4>
+
+                    <div class="photostream">
+                        <div>
+                            <a href="#">
+                                <img src="<c:url value='/resources/img/detailsquare.jpg' /> " class="img-responsive" alt="#">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <img src="<c:url value='/resources/img/detailsquare2.jpg' /> " class="img-responsive" alt="#">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <img src="<c:url value='/resources/img/detailsquare3.jpg' /> " class="img-responsive" alt="#">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <img src="<c:url value='/resources/img/detailsquare3.jpg' /> " class="img-responsive" alt="#">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <img src="<c:url value='/resources/img/detailsquare2.jpg' /> " class="img-responsive" alt="#">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <img src="<c:url value='/resources/img/detailsquare.jpg' /> " class="img-responsive" alt="#">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.col-md-3 -->
+            </div>
