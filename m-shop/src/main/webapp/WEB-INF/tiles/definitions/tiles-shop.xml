@@ -11,11 +11,7 @@
 		<put-attribute name="nav-bar" value="/WEB-INF/tiles/templates/shop/nav-bar.jsp" />
 		<put-attribute name="login-modal" value="/WEB-INF/tiles/templates/shop/login-modal.jsp" />
 		<put-attribute name="home-carousel" value="/WEB-INF/tiles/templates/shop/home-carousel.jsp" />
-		<put-attribute name="featured-project" value="/WEB-INF/tiles/templates/shop/featured-project.jsp" />
-		<put-attribute name="statistics" value="/WEB-INF/tiles/templates/shop/statistics.jsp" />
-		<put-attribute name="blogs" value="/WEB-INF/tiles/templates/shop/blogs.jsp" />
-		<put-attribute name="customers" value="/WEB-INF/tiles/templates/shop/customers.jsp" />
-		<put-attribute name="get-it" value="/WEB-INF/tiles/templates/shop/get-it.jsp" />
+		<put-attribute name="content" value="" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/templates/shop/footer.jsp" />
 		<put-attribute name="copyright" value="/WEB-INF/tiles/templates/shop/copyright.jsp" />
 	</definition>
@@ -23,6 +19,7 @@
 	<!-- Home -->
 	<definition name="home" extends="master-layout">
 		<put-attribute name="title" value="MyEshop - Home" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/home.jsp" />
 	</definition>
 	
 </tiles-definitions>

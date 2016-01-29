@@ -104,37 +104,12 @@ _________________________________________________________ -->
 
             <!-- *** HOMEPAGE CAROUSEL END *** -->
         </section>
-
-        <section class="bar background-white no-mb">
-			<tiles:insertAttribute name="featured-project"/>
-        </section>
-
-        <section class="bar background-pentagon no-mb">
-			<tiles:insertAttribute name="statistics"/>
-            <!-- /.container -->
-        </section>
-        <!-- /.bar -->
-
-        <section class="bar background-white no-mb">
-			<tiles:insertAttribute name="blogs"/>
-            <!-- /.container -->
-        </section>
-        <!-- /.bar -->
-
-        <section class="bar background-gray no-mb">
-			<tiles:insertAttribute name="customers"/>
-        </section>
-
-        <!-- *** GET IT ***
-_________________________________________________________ -->
-
-        <div id="get-it">
-			<tiles:insertAttribute name="get-it"/>
-        </div>
-
-
-        <!-- *** GET IT END *** -->
-
+		
+		<div id="content">
+			<tiles:insertAttribute name="content" />
+		</div>
+		<!-- /#content -->
+		
 
         <!-- *** FOOTER ***
 _________________________________________________________ -->

@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row">
 	    <div class="col-xs-5 contact">
-	        <p class="hidden-sm hidden-xs">Contact us on +420 777 555 333 or hello@universal.com.</p>
+	        <p class="hidden-sm hidden-xs">Contact us on +84 963 471 583 or phat@manifera.com.</p>
 	        <p class="hidden-md hidden-lg"><a href="#" data-animate-hover="pulse"><i class="fa fa-phone"></i></a>  <a href="#" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
 	        </p>
 	    </div>
