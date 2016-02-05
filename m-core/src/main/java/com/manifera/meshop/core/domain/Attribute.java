@@ -44,7 +44,7 @@ public class Attribute implements Auditable, Serializable {
 	private String name;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "attribute")
-	private Set<ProductAttributeValue> attributeValues = new HashSet<ProductAttributeValue>();
+	private Set<ProductAttributeValue> attributeValues = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")
@@ -73,14 +73,6 @@ public class Attribute implements Auditable, Serializable {
 		this.attributeValues = attributeValues;
 	}
 
-	/*public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}*/
-	
 	public ProductAttributeValue getAttributeValue() {
 		if(getAttributeValues() != null) {
 			Iterator<ProductAttributeValue> it = getAttributeValues().iterator();

@@ -5,31 +5,33 @@ import java.util.Set;
 
 import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Category;
+import com.manifera.meshop.core.domain.Language;
 import com.manifera.meshop.core.domain.Product;
 
 public interface ProductDao {
 	 
-	// ======================= GET =========================================
-	public Page<Product> getAllProducts();
+	// =============================== GET METHODS ====================================
 	
-	public Page<Product> getAllProducts(int offet, int limit);
+	public Product getById(long id, Language language);
 	
-	public Page<Product> getProductsByCategory(Category category, int offset, int limit);
+	public List<Product> getAllProducts(Language language);
 	
-	public Page<Product> getProductsByCategoryId(long categoryId, int offset, int limit);
+	public Page<Product> getAllProducts(Language language, int offet, int limit);
 	
-	public Page<Product> getProductsByCategories(List<Category> categories, int offset, int limit);
+	public Page<Product> getProductsByCategory(Category category, Language language, int offset, int limit);
 	
-	public Page<Product> getProductsByCategoryIds(Set<Long> categoryIds);
+	public Page<Product> getProductsByCategoryId(long categoryId, Language language, int offset, int limit);
 	
-	public Page<Product> getRelatedProductsById(long productId);
+	public Page<Product> getProductsByCategories(List<Category> categories, Language language, int offset, int limit);
 	
-	// ======================= UPDATE ======================================
-	public void update(Product product);
+	public Page<Product> getProductsByCategoryIds(Set<Long> categoryIds, Language language , int offset, int limit);
 	
-	// ======================= DELETE ======================================
-	public void deleteById(long productId);
+	public Page<Product> getFeaturedProducts(Language language);
 	
-	// ======================= CREATE ======================================
-	public void create(Product product);
+	public Page<Product> getClearanceProducts(Language language);
+	
+	public Page<Product> getNewReleaseProducts(Language language);
+	
+	public Page<Product> getNewReleaseProducts(String languageCode);
+	
 }

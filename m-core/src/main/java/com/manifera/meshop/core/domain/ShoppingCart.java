@@ -45,7 +45,7 @@ public class ShoppingCart implements Auditable, Serializable {
 	private AuditSection auditSection = new AuditSection();
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL ,mappedBy = "shoppingCart")
-	private Set<ShoppingCartItem> lineItems = new HashSet<ShoppingCartItem>();
+	private Set<ShoppingCartItem> lineItems = new HashSet<>();
 
 	public Long getId() {
 		return id;

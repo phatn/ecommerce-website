@@ -1,7 +1,37 @@
 package com.manifera.meshop.core.service;
 
+import java.util.List;
+import java.util.Set;
+
+import com.manifera.meshop.core.dao.common.Page;
+import com.manifera.meshop.core.domain.Category;
+import com.manifera.meshop.core.domain.Language;
+import com.manifera.meshop.core.domain.Product;
 import com.manifera.meshop.core.service.common.BaseService;
 
 public interface ProductService extends BaseService {
 	
+	// ======================= GET =========================================
+	
+	public Product getById(long id, Language language);
+	
+	public List<Product> getAllProducts(Language language);
+	
+	public Page<Product> getAllProducts(Language language, int offet, int limit);
+	
+	public Page<Product> getProductsByCategory(Category category, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByCategoryId(long categoryId, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByCategories(List<Category> categories, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByCategoryIds(Set<Long> categoryIds, Language language , int offset, int limit);
+	
+	public Page<Product> getFeaturedProducts(Language language);
+	
+	public Page<Product> getClearanceProducts(Language language);
+	
+	public Page<Product> getNewReleaseProducts(Language language);
+	
+	public Page<Product> getNewReleaseProducts(String languageCode);
 }

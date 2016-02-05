@@ -50,8 +50,8 @@ public class Category implements Auditable, Serializable {
 	@Column(name = "sort_order")
 	private Integer sortOrder = 0;
 	
-	@Column(name = "visible")
-	private boolean visible;
+	@Column(name = "available")
+	private boolean available;
 	
 	@Column(name = "depth")
 	private Integer depth;
@@ -61,36 +61,28 @@ public class Category implements Auditable, Serializable {
 	
 	@Column(name= "code", length = 100, nullable = false)
 	private String code;
-	
+
+	@Column(name = "is_deleted")
+	private boolean deleted;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private Category parent;
 	
 	@OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
-	private Set<Category> categories = new HashSet<Category>();
+	private Set<Category> categories = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
-	private Set<CategoryDescription> descriptions = new HashSet<CategoryDescription>();
+	private Set<CategoryDescription> descriptions = new HashSet<>();
 
 	@ManyToMany(mappedBy = "categories")
-	private Set<Product> products = new HashSet<Product>();
+	private Set<Product> products = new HashSet<>();
 	
 	@Transient
-	private List<Category> subCategories = new ArrayList<Category>();
-	
-	@Column(name = "is_deleted")
-	private Boolean deleted = false;
+	private List<Category> subCategories = new ArrayList<>();
 	
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
-	
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
 
 	public Long getId() {
 		return id;
@@ -115,15 +107,7 @@ public class Category implements Auditable, Serializable {
 	public void setSortOrder(Integer sortOrder) {
 		this.sortOrder = sortOrder;
 	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
+	
 	public Category getParent() {
 		return parent;
 	}
@@ -203,5 +187,21 @@ public class Category implements Auditable, Serializable {
 	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
+	}
+	
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

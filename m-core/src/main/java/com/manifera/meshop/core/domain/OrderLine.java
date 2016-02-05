@@ -49,7 +49,7 @@ public class OrderLine implements Auditable, Serializable {
 	
 	@Transient
 	public BigDecimal getTotalPrice() {
-		return product.getProductPrice().multiply(new BigDecimal(quantity));
+		return product.getPrice().multiply(new BigDecimal(quantity));
 	}
 	
 	public AuditSection getAuditSection() {

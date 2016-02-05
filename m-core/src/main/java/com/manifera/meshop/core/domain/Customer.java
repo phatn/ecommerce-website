@@ -81,7 +81,7 @@ public class Customer implements Auditable, Serializable {
 	@JoinTable(name="es_customer_role",
 	joinColumns = {@JoinColumn(name="customer_id")},
 	inverseJoinColumns = {@JoinColumn(name = "role_id")})
-	private Set<Role> roles = new HashSet<Role>();
+	private Set<Role> roles = new HashSet<>();
 	
 	@Column(name="customer_first_name")
 	private String firstName;
@@ -180,14 +180,6 @@ public class Customer implements Auditable, Serializable {
 		this.password = password;
 	}
 
-	public boolean getAnonymous() {
-		return anonymous;
-	}
-
-	public void setAnonymous(boolean anonymous) {
-		this.anonymous = anonymous;
-	}
-
 	public Delivery getDelivery() {
 		return delivery;
 	}
@@ -203,15 +195,23 @@ public class Customer implements Auditable, Serializable {
 	public void setBilling(Billing billing) {
 		this.billing = billing;
 	}
+	
+	public boolean isAnonymous() {
+		return anonymous;
+	}
 
-	public boolean getEnable() {
+	public void setAnonymous(boolean anonymous) {
+		this.anonymous = anonymous;
+	}
+
+	public boolean isEnable() {
 		return enable;
 	}
 
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
-	
+
 	@Transient
 	public String getFullName() {
 		return firstName + " " + lastName;

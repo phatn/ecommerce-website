@@ -66,7 +66,7 @@ public class User implements Auditable, Serializable {
 	@JoinTable(name="es_user_role",
 	joinColumns = {@JoinColumn(name="user_id")},
 	inverseJoinColumns = {@JoinColumn(name = "role_id")})
-	private Set<Role> roles = new HashSet<Role>();
+	private Set<Role> roles = new HashSet<>();
 	
 	@Column(name="customer_enable")
 	private boolean enable;
@@ -85,7 +85,7 @@ public class User implements Auditable, Serializable {
 		this.adminEmailAddress = adminEmailAddress;
 	}
 
-	public boolean getEnable() {
+	public boolean isEnable() {
 		return enable;
 	}
 

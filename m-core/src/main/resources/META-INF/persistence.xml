@@ -6,7 +6,7 @@
 	http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	
 	<persistence-unit name="ms-corePU" transaction-type="RESOURCE_LOCAL">
-		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider -->
+		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
 		
 		<class>com.manifera.meshop.core.domain.Attribute</class>
 		<class>com.manifera.meshop.core.domain.Category</class>
@@ -29,25 +29,27 @@
 		<class>com.manifera.meshop.core.domain.User</class>
 		<class>com.manifera.meshop.core.domain.common.AuditSection</class>
 		<class>com.manifera.meshop.core.domain.Billing</class>
+		<class>com.manifera.meshop.core.domain.Manufacturer</class>
+		<class>com.manifera.meshop.core.domain.ManufacturerDescription</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
-<!-- 		<properties>
-			Configuring JDBC properties
-			<property name="javax.persistence.jdbc.url" 
+		<properties>
+			<!-- Configuring JDBC properties -->
+			<!-- <property name="javax.persistence.jdbc.url" 
 				value="jdbc:mysql://localhost:3306/mshop?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="123456" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
 			 
-			Hibernate properties
-			<property name="hibernate.show_sql" value="true" />
+			<!-- Hibernate properties -->
+			<!-- <property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="update" /> -->
 			
-			Ehcache
-			<property name="hibernate.cache.use_second_level_cache" value="true"/>
-			<property name="hibernate.cache.region.factory_class" value="net.sf.ehcache.hibernate.EhCacheRegionFactory" />
-		</properties> -->
+			<!-- Ehcache -->
+			<!-- <property name="hibernate.cache.use_second_level_cache" value="true"/>
+			<property name="hibernate.cache.region.factory_class" value="net.sf.ehcache.hibernate.EhCacheRegionFactory" /> -->
+		</properties>
 	</persistence-unit>
 	
 </persistence>

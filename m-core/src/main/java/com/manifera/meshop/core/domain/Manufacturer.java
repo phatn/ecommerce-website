@@ -12,9 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -22,41 +21,35 @@ import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
 /**
- *  
+ * 
  * @author Phat Nguyen
  * 
  */
 
 @Entity
-@Table(name = "es_role")
-public class Role implements Auditable, Serializable {
-	
+@Table(name = "es_manufacturer")
+public class Manufacturer implements Auditable, Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name = "role_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "role_id")
+	@Column(name = "manufacturer_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "manufacturer_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
 	private Long id;
 	
 	@Column(name = "name")
 	private String name;
-
-	@ManyToMany(mappedBy = "roles")
-	private Set<User> users = new HashSet<>();
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-	private Set<Customer> customers = new HashSet<>();
-	
-	@ManyToMany(cascade = CascadeType.REFRESH)
-	@JoinTable(name="es_role_permission",
-	joinColumns = {@JoinColumn(name="role_id")},
-	inverseJoinColumns = {@JoinColumn(name = "permission_id")})
-	private Set<Permission> permissions = new HashSet<>();
 	
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
-
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "manufacturer")
+	private Set<ManufacturerDescription> descriptions = new HashSet<>();
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="manufacturer")
+	private Product product;
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,35 +66,30 @@ public class Role implements Auditable, Serializable {
 		this.name = name;
 	}
 
-	public Set<User> getUsers() {
-		return users;
+	public Set<ManufacturerDescription> getDescriptions() {
+		return descriptions;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setDescriptions(Set<ManufacturerDescription> descriptions) {
+		this.descriptions = descriptions;
 	}
 
-	public Set<Customer> getCustomers() {
-		return customers;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setCustomers(Set<Customer> customers) {
-		this.customers = customers;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
-	public Set<Permission> getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(Set<Permission> permissions) {
-		this.permissions = permissions;
-	}
-	
+	@Override
 	public AuditSection getAuditSection() {
 		return auditSection;
 	}
 
+	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
 	}
+	
 }

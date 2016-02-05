@@ -18,6 +18,10 @@ public class Page<T> {
 
 	public Page() {}
 	
+	public Page(List<T> list) {
+		this.list = list;
+	}
+	
 	public Page(long totalRecord, List<T> list) {
 		this.totalRecords = totalRecord;
 		this.list = list;

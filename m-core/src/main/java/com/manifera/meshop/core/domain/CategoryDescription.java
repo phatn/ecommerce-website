@@ -48,6 +48,7 @@ public class CategoryDescription implements Auditable, Serializable {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
+	// Search engine friendly url
 	@Column(name = "sef_url", length = 120)
 	private String sefUrl;
 	

@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -51,7 +52,10 @@ public class Product implements Auditable, Serializable {
 	private String sku;
 	
 	@Column(name = "product_price")
-	private BigDecimal productPrice;
+	private BigDecimal price;
+	
+	@Column(name = "product_sale_price")
+	private BigDecimal salePrice;
 	
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
@@ -69,45 +73,41 @@ public class Product implements Auditable, Serializable {
 	private Integer reviewCount;
 	
 	@Column(name = "featured_seller")
-	private Boolean featuredSeller = false;
+	private boolean featuredSeller;
 	
 	@Column(name = "new_release")
-	private Boolean newRelease = false;
+	private boolean newRelease;
 	
 	@Column(name = "clearance")
-	private Boolean clearance = false;
+	private boolean clearance;
 	
 	@Column(name = "is_deleted")
-	private Boolean deleted = false;
-	
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
-	private Set<ProductDescription> descriptions = new HashSet<ProductDescription>();
+	private boolean deleted = false;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
-	private Set<ProductImage> productImages = new HashSet<ProductImage>();
+	private Set<ProductDescription> descriptions = new HashSet<>();
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="product")
+	private Set<ProductImage> productImages = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "product")
-	private Set<ProductRelationship> relationships = new HashSet<ProductRelationship>();
+	private Set<ProductRelationship> relationships = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "product")
-	private Set<Attribute> attributes = new HashSet<Attribute>();
+	private Set<Attribute> attributes = new HashSet<>();
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinTable(name="es_category_product",
 	joinColumns = {@JoinColumn(name="product_id")},
 	inverseJoinColumns = {@JoinColumn(name = "category_id")})
-	private Set<Category> categories = new HashSet<Category>();
+	private Set<Category> categories = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", orphanRemoval = true)
-	private Set<OrderLine> orderLines = new HashSet<OrderLine>();
+	private Set<OrderLine> orderLines = new HashSet<>();
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="manufacturer_id")
+	private Manufacturer manufacturer;
 	
 	public Set<OrderLine> getOrderLines() {
 		return orderLines;
@@ -133,15 +133,6 @@ public class Product implements Auditable, Serializable {
 		this.auditSection = auditSection;
 	}
 
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-
-	
 	public Integer getSortOrder() {
 		return sortOrder;
 	}
@@ -223,37 +214,20 @@ public class Product implements Auditable, Serializable {
 		this.categories = categories;
 	}
 
-
-	public BigDecimal getProductPrice() {
-		return productPrice;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setProductPrice(BigDecimal productPrice) {
-		this.productPrice = productPrice;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
-	public Boolean getFeaturedSeller() {
-		return featuredSeller;
+	public BigDecimal getSalePrice() {
+		return salePrice;
 	}
 
-	public void setFeaturedSeller(Boolean featuredSeller) {
-		this.featuredSeller = featuredSeller;
-	}
-
-	public Boolean getNewRelease() {
-		return newRelease;
-	}
-
-	public void setNewRelease(Boolean newRelease) {
-		this.newRelease = newRelease;
-	}
-
-	public Boolean getClearance() {
-		return clearance;
-	}
-
-	public void setClearance(Boolean clearance) {
-		this.clearance = clearance;
+	public void setSalePrice(BigDecimal salePrice) {
+		this.salePrice = salePrice;
 	}
 
 	@Override
@@ -370,5 +344,45 @@ public class Product implements Auditable, Serializable {
 			}
 		}
 		return null;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public boolean isFeaturedSeller() {
+		return featuredSeller;
+	}
+
+	public void setFeaturedSeller(boolean featuredSeller) {
+		this.featuredSeller = featuredSeller;
+	}
+
+	public boolean isNewRelease() {
+		return newRelease;
+	}
+
+	public void setNewRelease(boolean newRelease) {
+		this.newRelease = newRelease;
+	}
+
+	public boolean isClearance() {
+		return clearance;
+	}
+
+	public void setClearance(boolean clearance) {
+		this.clearance = clearance;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

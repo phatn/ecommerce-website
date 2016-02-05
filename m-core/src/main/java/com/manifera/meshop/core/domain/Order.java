@@ -44,7 +44,7 @@ public class Order implements Auditable, Serializable {
 	private Long id;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-	private Set<OrderLine> orderLines = new HashSet<OrderLine>();
+	private Set<OrderLine> orderLines = new HashSet<>();
 
 	@Column(name = "order_status")
 	@Enumerated(value = EnumType.STRING)
