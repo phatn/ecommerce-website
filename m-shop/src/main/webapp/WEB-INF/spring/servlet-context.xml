@@ -22,7 +22,7 @@
 	</bean>
 	
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="messages"/>
+		<property name="basename" value="bundles/messages"/>
 		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
@@ -48,15 +48,15 @@
 		<property name="maxUploadSize" value="10240000"/>
 	</bean>
 	
-<!-- 	<mvc:interceptors>
+	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="language" />
 		</bean>
-		 <mvc:interceptor>
+		<!--  <mvc:interceptor>
   			<mvc:mapping path="/**"/>
   			<bean class="com.myeshop.web.filter.StoreFilter"/>
- 		</mvc:interceptor>
-	</mvc:interceptors> -->
+ 		</mvc:interceptor> -->
+	</mvc:interceptors>
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
 		<property name="order" value="-2" />

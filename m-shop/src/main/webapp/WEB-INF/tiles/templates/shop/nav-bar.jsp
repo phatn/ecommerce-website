@@ -23,22 +23,10 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown active">
-                <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="index.html">Option 1: Default Page</a>
-                    </li>
-                    <li><a href="index2.html">Option 2: Application</a>
-                    </li>
-                    <li><a href="index3.html">Option 3: Startup</a>
-                    </li>
-                    <li><a href="index4.html">Option 4: Agency</a>
-                    </li>
-                    <li><a href="index5.html">Option 5: Portfolio</a>
-                    </li>
-                </ul>
+                <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.home"/> <!-- <b class="caret"></b> --></a>
             </li>
             <li class="dropdown use-yamm yamm-fw">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Features<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.laptop"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <div class="yamm-content">
@@ -47,34 +35,16 @@
                                     <img src="<c:url value='/resources/img/template-easy-customize.png' /> " class="img-responsive hidden-xs" alt="">
                                 </div>
                                 <div class="col-sm-3">
-                                    <h5>Shortcodes</h5>
+                                    <h5><spring:message code="label.nav-bar.top-brands"/></h5>
                                     <ul>
                                         <li><a href="template-accordions.html">Accordions</a>
-                                        </li>
-                                        <li><a href="template-alerts.html">Alerts</a>
-                                        </li>
-                                        <li><a href="template-buttons.html">Buttons</a>
-                                        </li>
-                                        <li><a href="template-content-boxes.html">Content boxes</a>
-                                        </li>
-                                        <li><a href="template-blocks.html">Horizontal blocks</a>
-                                        </li>
-                                        <li><a href="template-pagination.html">Pagination</a>
-                                        </li>
-                                        <li><a href="template-tabs.html">Tabs</a>
-                                        </li>
-                                        <li><a href="template-typography.html">Typography</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3">
-                                    <h5>Header variations</h5>
+                                    <h5><spring:message code="label.nav-bar.price"/></h5>
                                     <ul>
                                         <li><a href="template-header-default.html">Default sticky header</a>
-                                        </li>
-                                        <li><a href="template-header-nosticky.html">No sticky header</a>
-                                        </li>
-                                        <li><a href="template-header-light.html">Light header</a>
                                         </li>
                                     </ul>
                                 </div>
