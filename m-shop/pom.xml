@@ -26,7 +26,6 @@
 		<cglib.version>3.1</cglib.version>
 		<jetty-maven-plugin.version>8.1.1.v20120215</jetty-maven-plugin.version>
 		<ehcache.version>2.10.0</ehcache.version>	
-		<javax.el-api.version>2.2.4</javax.el-api.version>	
 		<!-- <commons-fileupload.version>1.3.1</commons-fileupload.version>
 		<commons-io.version>2.4</commons-io.version> -->
 		<commons-fileupload.version>1.2.2</commons-fileupload.version>
@@ -97,15 +96,6 @@
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 			<version>${cglib.version}</version>
-		</dependency>
-		
-		
-		
-		<dependency>
-		   <groupId>javax.el</groupId>
-		   <artifactId>javax.el-api</artifactId>
-		   <version>${javax.el-api.version}</version>
-		   <scope>provided</scope>
 		</dependency>
 		
 		<!-- Javax inject -->

@@ -4,9 +4,9 @@
 
             <div class="container">
                 <div class="col-md-3 col-sm-6">
-                    <h4>About us</h4>
+                    <h4><spring:message code="label.about-us" /></h4>
 
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <p>MyEshop is an e-commerce web site, we buy all related to computer products.</p>
 
                     <hr>
 
@@ -32,7 +32,7 @@
                 </div>
                 <!-- /.col-md-3 -->
 
-                <div class="col-md-3 col-sm-6">
+               <%--  <div class="col-md-3 col-sm-6">
 
                     <h4>Blog</h4>
 
@@ -73,23 +73,21 @@
 
                     <hr class="hidden-md hidden-lg">
 
-                </div>
+                </div> --%>
                 <!-- /.col-md-3 -->
 
                 <div class="col-md-3 col-sm-6">
 
-                    <h4>Contact</h4>
+                    <h4><spring:message code="label.contact" /></h4>
 
-                    <p><strong>Universal Ltd.</strong>
-                        <br>13/25 New Avenue
-                        <br>Newtown upon River
-                        <br>45Y 73J
-                        <br>England
+                    <p><strong>Manifera Pte. Ltd.</strong>
+                        <br>100 Tras Street #16-01 100 AM
+                        <br>Singapore 079027
                         <br>
-                        <strong>Great Britain</strong>
+                        <strong>Singapore</strong>
                     </p>
 
-                    <a href="contact.html" class="btn btn-small btn-template-main">Go to contact page</a>
+                    <a href="contact.html" class="btn btn-small btn-template-main"><spring:message code="label.go-to-contact-page" /> </a>
 
                     <hr class="hidden-md hidden-lg hidden-sm">
 
@@ -98,7 +96,7 @@
 
 
 
-                <div class="col-md-3 col-sm-6">
+               <%--  <div class="col-md-3 col-sm-6">
 
                     <h4>Photostream</h4>
 
@@ -135,6 +133,6 @@
                         </div>
                     </div>
 
-                </div>
+                </div> --%>
                 <!-- /.col-md-3 -->
             </div>
