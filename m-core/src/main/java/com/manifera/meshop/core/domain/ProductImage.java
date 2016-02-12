@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.manifera.meshop.core.constant.Constant;
+import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
+import com.manifera.meshop.core.domain.common.Auditable;
 
 
 
@@ -26,15 +30,16 @@ import com.manifera.meshop.core.domain.common.AuditSection;
  */
 
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "es_product_image")
-public class ProductImage implements Serializable {
+public class ProductImage implements Auditable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "product_image_id")
 	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_image_id")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
 	@Column(name = "name")
@@ -57,6 +62,17 @@ public class ProductImage implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private ImageSize imageSize;
 	
+	@Column(name = "is_active")
+	private boolean active = false;
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -89,10 +105,12 @@ public class ProductImage implements Serializable {
 		this.thumbnail = thumbnail;
 	}
 
+	@Override
 	public AuditSection getAuditSection() {
 		return auditSection;
 	}
 
+	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
 	}
@@ -111,5 +129,9 @@ public class ProductImage implements Serializable {
 
 	public void setImageSize(ImageSize imageSize) {
 		this.imageSize = imageSize;
+	}
+	
+	public String getProductImage() {
+		return Constant.PRODUCT_IMAGE_ROOT_PATH + "/" + image;
 	}
 }

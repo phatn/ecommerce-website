@@ -11,4 +11,6 @@ public interface ManufacturerDao {
 	
 	public List<Manufacturer> getManufacturersByCategory(Category category);
 	
+	public Manufacturer getByName(String name);
+	
 }

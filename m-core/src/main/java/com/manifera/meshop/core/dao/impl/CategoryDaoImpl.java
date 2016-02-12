@@ -71,4 +71,17 @@ public class CategoryDaoImpl extends AbstractGenericDao<Category, Long> implemen
 		return rootCategories;
 	}
 
+	@Override
+	public Category getByName(String name) {
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select c from Category c join c.descriptions cd ");
+		queryBuilder.append("join cd.language l where l.code = :code and cd.name = :name");
+		
+		TypedQuery<Category> query = getEntityManager().createQuery(queryBuilder.toString(), Category.class);
+		query.setParameter("code", "en");
+		query.setParameter("name", name);
+		
+		return query.getSingleResult();
+	}
+
 }

@@ -8,15 +8,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
@@ -27,6 +28,7 @@ import com.manifera.meshop.core.domain.common.Auditable;
  */
 
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "es_manufacturer")
 public class Manufacturer implements Auditable, Serializable {
 
@@ -35,7 +37,7 @@ public class Manufacturer implements Auditable, Serializable {
 	@Id
 	@Column(name = "manufacturer_id")
 	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "manufacturer_id")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
 	@Column(name = "name")
@@ -47,8 +49,8 @@ public class Manufacturer implements Auditable, Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "manufacturer")
 	private Set<ManufacturerDescription> descriptions = new HashSet<>();
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy="manufacturer")
-	private Product product;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturer")
+	private Set<Product> products = new HashSet<>();
 	
 	public Long getId() {
 		return id;
@@ -74,14 +76,6 @@ public class Manufacturer implements Auditable, Serializable {
 		this.descriptions = descriptions;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
 	@Override
 	public AuditSection getAuditSection() {
 		return auditSection;
@@ -91,5 +85,12 @@ public class Manufacturer implements Auditable, Serializable {
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
 	}
-	
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 }

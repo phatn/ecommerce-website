@@ -15,6 +15,7 @@
 		<hibernate-validator.version>5.2.2.Final</hibernate-validator.version>
 		<ehcache-core.version>2.6.11</ehcache-core.version>
 		<hibernate-ehcache.version>5.0.7.Final</hibernate-ehcache.version>
+		<javax.el-api.version>2.2.4</javax.el-api.version>	
 		<c3p0.version>0.9.5.2</c3p0.version>
 	</properties>
 	
@@ -62,6 +63,14 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate-ehcache.version}</version>
+		</dependency>
+		
+		<!-- Javax EL -->
+		<dependency>
+		   <groupId>javax.el</groupId>
+		   <artifactId>javax.el-api</artifactId>
+		   <version>${javax.el-api.version}</version>
+		   <scope>provided</scope>
 		</dependency>
 		
 	</dependencies>

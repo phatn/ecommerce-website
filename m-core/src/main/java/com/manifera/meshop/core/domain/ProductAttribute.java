@@ -9,6 +9,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
@@ -29,15 +33,16 @@ import com.manifera.meshop.core.domain.common.Auditable;
  */
 
 @Entity
-@Table(name = "es_attribute")
-public class Attribute implements Auditable, Serializable {
+@EntityListeners(value = AuditListener.class)
+@Table(name = "es_product_attribute")
+public class ProductAttribute implements Auditable, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "attribute_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "attribute_id")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
+	@Column(name = "product_attribute_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_attribute_id")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
 	@Column(name = "name")
@@ -53,6 +58,16 @@ public class Attribute implements Auditable, Serializable {
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
 	
+	@Column(name = "product_attribute_type")
+	@Enumerated(value = EnumType.STRING)
+	private ProductAttributeType attributeType;
+	
+	//================= CUSTOM METHODS =====================
+	
+	
+	
+	
+	//================= GETTER AND SETTER ==================
 	public Long getId() {
 		return id;
 	}
@@ -63,6 +78,10 @@ public class Attribute implements Auditable, Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Set<ProductAttributeValue> getAttributeValues() {
@@ -97,5 +116,13 @@ public class Attribute implements Auditable, Serializable {
 	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
+	}
+	
+	public ProductAttributeType getAttributeType() {
+		return attributeType;
+	}
+
+	public void setAttributeType(ProductAttributeType attributeType) {
+		this.attributeType = attributeType;
 	}
 }

@@ -65,13 +65,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> getNewReleaseProducts(Language language) {
-		return productDao.getNewReleaseProducts(language);
+	public Page<Product> getNewArrivalProducts(Language language) {
+		return productDao.getNewArrivalProducts(language);
 	}
 
 	@Override
-	public Page<Product> getNewReleaseProducts(String languageCode) {
-		return productDao.getNewReleaseProducts(languageCode);
+	public Page<Product> getNewArrivalProducts(String languageCode) {
+		return productDao.getNewArrivalProducts(languageCode);
 	}
 
+	@Override
+	public Page<Product> getFeaturedProducts(String languageCode) {
+		return productDao.getFeaturedProducts(languageCode);
+	}
 }

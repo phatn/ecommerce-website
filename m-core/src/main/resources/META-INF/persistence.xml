@@ -6,9 +6,8 @@
 	http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	
 	<persistence-unit name="ms-corePU" transaction-type="RESOURCE_LOCAL">
-		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
 		
-		<class>com.manifera.meshop.core.domain.Attribute</class>
+		<class>com.manifera.meshop.core.domain.ProductAttribute</class>
 		<class>com.manifera.meshop.core.domain.Category</class>
 		<class>com.manifera.meshop.core.domain.CategoryDescription</class>
 		<class>com.manifera.meshop.core.domain.Country</class>
@@ -32,23 +31,55 @@
 		<class>com.manifera.meshop.core.domain.Manufacturer</class>
 		<class>com.manifera.meshop.core.domain.ManufacturerDescription</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
+	</persistence-unit>
+	
+	<persistence-unit name="ms-corePU-test" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<class>com.manifera.meshop.core.domain.ProductAttribute</class>
+		<class>com.manifera.meshop.core.domain.Category</class>
+		<class>com.manifera.meshop.core.domain.CategoryDescription</class>
+		<class>com.manifera.meshop.core.domain.Country</class>
+		<class>com.manifera.meshop.core.domain.Customer</class>
+		<class>com.manifera.meshop.core.domain.Delivery</class>
+		<class>com.manifera.meshop.core.domain.Language</class>
+		<class>com.manifera.meshop.core.domain.Order</class>
+		<class>com.manifera.meshop.core.domain.OrderLine</class>
+		<class>com.manifera.meshop.core.domain.Permission</class>
+		<class>com.manifera.meshop.core.domain.Product</class>
+		<class>com.manifera.meshop.core.domain.ProductAttributeValue</class>
+		<class>com.manifera.meshop.core.domain.ProductDescription</class>
+		<class>com.manifera.meshop.core.domain.ProductImage</class>
+		<class>com.manifera.meshop.core.domain.ProductRelationship</class>
+		<class>com.manifera.meshop.core.domain.Role</class>
+		<class>com.manifera.meshop.core.domain.ShoppingCart</class>
+		<class>com.manifera.meshop.core.domain.ShoppingCartItem</class>
+		<class>com.manifera.meshop.core.domain.User</class>
+		<class>com.manifera.meshop.core.domain.common.AuditSection</class>
+		<class>com.manifera.meshop.core.domain.Billing</class>
+		<class>com.manifera.meshop.core.domain.Manufacturer</class>
+		<class>com.manifera.meshop.core.domain.ManufacturerDescription</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
 		<properties>
 			<!-- Configuring JDBC properties -->
-			<!-- <property name="javax.persistence.jdbc.url" 
+			<property name="javax.persistence.jdbc.url" 
 				value="jdbc:mysql://localhost:3306/mshop?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="123456" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			 
 			<!-- Hibernate properties -->
-			<!-- <property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" /> -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			
 			<!-- Ehcache -->
 			<!-- <property name="hibernate.cache.use_second_level_cache" value="true"/>
 			<property name="hibernate.cache.region.factory_class" value="net.sf.ehcache.hibernate.EhCacheRegionFactory" /> -->
+			
 		</properties>
 	</persistence-unit>
 	

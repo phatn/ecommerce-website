@@ -17,13 +17,20 @@ public class ManufacturerDaoImpl extends AbstractGenericDao<Manufacturer, Long> 
 	@Override
 	public List<Manufacturer> getManufacturersByCategory(Category category) {
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("select m from Manufacturer m join m.product p ");
+		queryBuilder.append("select m from Manufacturer m join m.products p ");
 		queryBuilder.append("where p.categories.id = :categoryId");
 		
 		TypedQuery<Manufacturer> query = getEntityManager().createQuery(queryBuilder.toString(), Manufacturer.class);
 		query.setParameter("categoryId", category.getId());
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public Manufacturer getByName(String name) {
+		TypedQuery<Manufacturer> query = getEntityManager().createQuery("select m from Manufacturer m where m.name = :name", Manufacturer.class);
+		query.setParameter("name", name);
+		return query.getSingleResult();
 	}
 
 }

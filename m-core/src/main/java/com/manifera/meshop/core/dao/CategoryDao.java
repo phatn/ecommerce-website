@@ -17,4 +17,6 @@ public interface CategoryDao {
 	
 	public List<Category> getAllRootCategories(Language language);
 	
+	public Category getByName(String name);
+	
 }

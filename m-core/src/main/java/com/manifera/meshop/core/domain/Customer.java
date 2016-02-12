@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -24,6 +25,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
@@ -34,6 +36,7 @@ import com.manifera.meshop.core.domain.common.Auditable;
  */
 
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "es_customer")
 public class Customer implements Auditable, Serializable {
 	
@@ -42,7 +45,7 @@ public class Customer implements Auditable, Serializable {
 	@Id
 	@Column(name = "customer_id")
 	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "customer_id")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
 	@Column(name = "gender")

@@ -7,5 +7,10 @@ import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.service.common.BaseService;
 
 public interface ManufacturerService extends BaseService {
+	
+	public Manufacturer getByName(String name);
+	
 	public List<Manufacturer> getManufacturersByCategory(Category category);
+	
+	public List<Manufacturer> getManufacturersByCategoryName(String categoryName);
 }

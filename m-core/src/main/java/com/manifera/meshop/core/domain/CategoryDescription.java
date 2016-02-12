@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
@@ -23,6 +25,7 @@ import com.manifera.meshop.core.domain.common.Auditable;
  */
 
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "es_category_description")
 public class CategoryDescription implements Auditable, Serializable {
 	
@@ -31,7 +34,7 @@ public class CategoryDescription implements Auditable, Serializable {
 	@Id
 	@Column(name = "category_description_id")
 	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "category_description_id")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
 	@Column(name = "name")

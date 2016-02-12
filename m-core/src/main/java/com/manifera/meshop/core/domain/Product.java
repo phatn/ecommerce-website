@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,11 +20,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
+import com.google.common.base.Joiner;
+import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
@@ -37,6 +43,7 @@ import flexjson.JSON;
  */
 
 @Entity
+@EntityListeners(value = AuditListener.class)
 @Table(name = "es_product")
 public class Product implements Auditable, Serializable {
 	
@@ -45,23 +52,25 @@ public class Product implements Auditable, Serializable {
 	@Id
 	@Column(name = "product_id")
 	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_id")
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="table_generator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
 	@Column(name = "sku")
 	private String sku;
 	
 	@Column(name = "product_price")
+	@NumberFormat(style = Style.CURRENCY)
 	private BigDecimal price;
 	
 	@Column(name = "product_sale_price")
+	@NumberFormat(style = Style.CURRENCY)
 	private BigDecimal salePrice;
 	
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
 	
 	@Column(name = "available")
-	private boolean available = true;
+	private boolean available;
 
 	@Column(name = "sort_order")
 	private Integer sortOrder;
@@ -75,8 +84,8 @@ public class Product implements Auditable, Serializable {
 	@Column(name = "featured_seller")
 	private boolean featuredSeller;
 	
-	@Column(name = "new_release")
-	private boolean newRelease;
+	@Column(name = "new_arrival")
+	private boolean newArrival;
 	
 	@Column(name = "clearance")
 	private boolean clearance;
@@ -94,7 +103,7 @@ public class Product implements Auditable, Serializable {
 	private Set<ProductRelationship> relationships = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "product")
-	private Set<Attribute> attributes = new HashSet<>();
+	private Set<ProductAttribute> attributes = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinTable(name="es_category_product",
@@ -105,10 +114,172 @@ public class Product implements Auditable, Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", orphanRemoval = true)
 	private Set<OrderLine> orderLines = new HashSet<>();
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="manufacturer_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="manufacturer_id", nullable=true)
 	private Manufacturer manufacturer;
 	
+	//===================== CUSTOM METHODS =======================
+	
+	public ProductImage getMediumImage() {
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.MEDIUM && image.isActive()) {
+					return image;
+				}
+			}
+		}
+		return null;
+	}
+	
+	// Get name of product
+	public ProductAttributeValue getNameAttributeValue() {
+		if(getAttributes() != null) {
+			for(ProductAttribute attribute : getAttributes()) {
+				if("Name".equalsIgnoreCase(attribute.getName()) && attribute.getAttributeValues() != null) {
+					for(ProductAttributeValue attributeValue : attribute.getAttributeValues()) {
+						if(attribute.getAttributeType() == ProductAttributeType.TEXT) {
+							return attributeValue;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public String getSelUrl() {
+		ProductAttributeValue nameAttributeValue = getNameAttributeValue();
+		if(nameAttributeValue != null && !nameAttributeValue.getValue().isEmpty()) {
+			String name = (nameAttributeValue.getValue().toLowerCase() + " " + getId().toString()).replaceAll("('|\")", "");;
+			return Joiner.on("-").join(name.split("\\s+"));
+		}
+		return getId().toString();
+	}
+	
+	public ProductAttribute getAttribute() {
+		if(getAttributes() != null) {
+			Iterator<ProductAttribute> it = getAttributes().iterator();
+			return it.next();
+		}
+		return null;
+	}
+	
+	public ProductImage getSmallImage() {
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.SMALL) {
+					return image;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public List<ProductImage> getTinyImages() {
+		List<ProductImage> tinyImages = new ArrayList<ProductImage>();
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.TINY) {
+					tinyImages.add(image);
+				}
+			}
+		}
+		return tinyImages;
+	}
+	
+	@JSON(include = false)
+	public List<ProductImage> getMediumImages() {
+		List<ProductImage> mediumImages = new ArrayList<ProductImage>();
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.MEDIUM) {
+					mediumImages.add(image);
+				}
+			}
+		}
+		return mediumImages;
+	}
+	
+	@JSON(include = false)
+	public List<ProductImage> getBigImages() {
+		List<ProductImage> bigImages = new ArrayList<ProductImage>();
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.BIG) {
+					bigImages.add(image);
+				}
+			}
+		}
+		return bigImages;
+	}
+	
+	public ProductDescription getDescription() {
+		if(descriptions != null && !descriptions.isEmpty()) {
+			return descriptions.iterator().next();
+		}
+		return null;
+	}
+	
+	public ProductDescription getDescription(Language language) {
+		if(descriptions != null && !descriptions.isEmpty()) {
+			for(ProductDescription productDescription : descriptions) {
+				if(productDescription.getLanguage().equals(language)) {
+					return productDescription;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public ProductAttribute getAttributeByName(String name) {
+		if(attributes != null && !attributes.isEmpty()) {
+			for(ProductAttribute att : attributes) {
+				if(att.getName() != null && att.getName().equalsIgnoreCase("Name")) {
+					return att;
+				}
+			}
+		}
+		return null;
+	}
+	
+	//=================== HASHCODE AND EQUALS ========================
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	
+	//================== GETTER AND SETTER ======================
+	
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
 	public Set<OrderLine> getOrderLines() {
 		return orderLines;
 	}
@@ -189,20 +360,11 @@ public class Product implements Auditable, Serializable {
 		this.relationships = relationships;
 	}
 
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	public Set<Attribute> getAttributes() {
+	public Set<ProductAttribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Set<Attribute> attributes) {
+	public void setAttributes(Set<ProductAttribute> attributes) {
 		this.attributes = attributes;
 	}
 
@@ -229,123 +391,7 @@ public class Product implements Auditable, Serializable {
 	public void setSalePrice(BigDecimal salePrice) {
 		this.salePrice = salePrice;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
-	@JSON(include = false)
-	public Attribute getAttribute() {
-		if(getAttributes() != null) {
-			Iterator<Attribute> it = getAttributes().iterator();
-			return it.next();
-		}
-		return null;
-	}
 	
-	public Attribute getAttributeName() {
-		if(getAttributes() != null) {
-			for(Attribute attribute : getAttributes()) {
-				if("Name".equalsIgnoreCase(attribute.getName())) {
-					return attribute;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public ProductImage getSmallImage() {
-		if(getProductImages() != null) {
-			for(ProductImage image : getProductImages()) {
-				if(image.getImageSize() == ImageSize.SMALL) {
-					return image;
-				}
-			}
-		}
-		return null;
-	}
-	
-	@JSON(include = false)
-	public List<ProductImage> getTinyImages() {
-		List<ProductImage> tinyImages = new ArrayList<ProductImage>();
-		if(getProductImages() != null) {
-			for(ProductImage image : getProductImages()) {
-				if(image.getImageSize() == ImageSize.TINY) {
-					tinyImages.add(image);
-				}
-			}
-		}
-		return tinyImages;
-	}
-	
-	@JSON(include = false)
-	public List<ProductImage> getMediumImages() {
-		List<ProductImage> mediumImages = new ArrayList<ProductImage>();
-		if(getProductImages() != null) {
-			for(ProductImage image : getProductImages()) {
-				if(image.getImageSize() == ImageSize.MEDIUM) {
-					mediumImages.add(image);
-				}
-			}
-		}
-		return mediumImages;
-	}
-	
-	@JSON(include = false)
-	public List<ProductImage> getBigImages() {
-		List<ProductImage> bigImages = new ArrayList<ProductImage>();
-		if(getProductImages() != null) {
-			for(ProductImage image : getProductImages()) {
-				if(image.getImageSize() == ImageSize.BIG) {
-					bigImages.add(image);
-				}
-			}
-		}
-		return bigImages;
-	}
-	
-	public ProductDescription getDescription() {
-		if(descriptions != null && !descriptions.isEmpty()) {
-			return descriptions.iterator().next();
-		}
-		return null;
-	}
-	
-	public ProductDescription getDescription(Language language) {
-		if(descriptions != null && !descriptions.isEmpty()) {
-			for(ProductDescription productDescription : descriptions) {
-				if(productDescription.getLanguage().equals(language)) {
-					return productDescription;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Attribute getAttributeByName(String name) {
-		if(attributes != null && !attributes.isEmpty()) {
-			for(Attribute att : attributes) {
-				if(att.getName() != null && att.getName().equalsIgnoreCase("Name")) {
-					return att;
-				}
-			}
-		}
-		return null;
-	}
-
 	public boolean isAvailable() {
 		return available;
 	}
@@ -362,12 +408,12 @@ public class Product implements Auditable, Serializable {
 		this.featuredSeller = featuredSeller;
 	}
 
-	public boolean isNewRelease() {
-		return newRelease;
+	public boolean isNewArrival() {
+		return newArrival;
 	}
 
-	public void setNewRelease(boolean newRelease) {
-		this.newRelease = newRelease;
+	public void setNewArrival(boolean newArrival) {
+		this.newArrival = newArrival;
 	}
 
 	public boolean isClearance() {

@@ -114,14 +114,23 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 
 	@Override
 	public Page<Product> getFeaturedProducts(Language language) {
+		return getFeaturedProducts(language.getCode());
+	}
+
+	@Override
+	public Page<Product> getFeaturedProducts(String languageCode) {
 		
 		// Construct query to get featured products
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("select DISTINCT p from Product p left join fetch p.attributes a ");
+		queryBuilder.append("select DISTINCT p from Product p join fetch p.descriptions pd left join fetch p.attributes a ");
 		queryBuilder.append("join fetch a.attributeValues av left join fetch p.productImages i ");
 		queryBuilder.append("where p.featuredSeller is true ");
+		queryBuilder.append("and pd.language.code = :languageCode ");
 		queryBuilder.append("and p.available is true and p.deleted is false");
+		
 		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
+		query.setParameter("languageCode", languageCode);
+		
 		
 		// Construct query to count featured products
 		StringBuilder queryBuilderCount = new StringBuilder();
@@ -132,17 +141,20 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		
 		return new Page<Product>(queryCount.getSingleResult(), query.getResultList());
 	}
-
+	
 	@Override
 	public Page<Product> getClearanceProducts(Language language) {
 		
 		// Construct query to get clearance products
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("select DISTINCT p from Product p left join fetch p.attributes a ");
+		queryBuilder.append("select DISTINCT p from Product p join fetch p.descriptions pd left join fetch p.attributes a ");
 		queryBuilder.append("join fetch a.attributeValues av left join fetch p.productImages i ");
 		queryBuilder.append("where p.clearance is true ");
+		queryBuilder.append("and pd.language.code = :languageCode ");
 		queryBuilder.append("and p.available is true and p.deleted is false");
+		
 		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
+		query.setParameter("languageCode", language.getCode());
 		
 		// Construct query to count clearance products
 		StringBuilder queryBuilderCount = new StringBuilder();
@@ -155,18 +167,22 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 	}
 
 	@Override
-	public Page<Product> getNewReleaseProducts(Language language) {
-		return getNewReleaseProducts(language.getCode());
+	public Page<Product> getNewArrivalProducts(Language language) {
+		return getNewArrivalProducts(language.getCode());
 	}
 
 	@Override
-	public Page<Product> getNewReleaseProducts(String languageCode) {
+	public Page<Product> getNewArrivalProducts(String languageCode) {
+		if(languageCode == null || languageCode.isEmpty()) {
+			languageCode = "en";
+		}
 		
-		// Construct query to get new release products
+		// Construct query to get new arrival products
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("select DISTINCT p from Product p join fetch p.descriptions pd left join fetch p.attributes a ");
-		queryBuilder.append("join fetch a.attributeValues av left join fetch p.productImages i ");
-		queryBuilder.append("where p.newRelease is true ");
+		queryBuilder.append("select DISTINCT p from Product p left join fetch p.descriptions pd ");
+		queryBuilder.append("left join fetch p.attributes a left join fetch a.attributeValues av ");
+		queryBuilder.append("left join fetch p.productImages i ");
+		queryBuilder.append("where p.newArrival is true ");
 		queryBuilder.append("and pd.language.code = :languageCode ");
 		queryBuilder.append("and p.available is true and p.deleted is false");
 		
@@ -176,7 +192,7 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		// Construct query to count new release products
 		StringBuilder queryBuilderCount = new StringBuilder();
 		queryBuilderCount.append("select count(*) from Product p ");
-		queryBuilderCount.append("where p.newRelease is true ");
+		queryBuilderCount.append("where p.newArrival is true ");
 		queryBuilderCount.append("and p.available is true and p.deleted is false");
 		TypedQuery<Long> queryCount = getEntityManager().createQuery(queryBuilderCount.toString(), Long.class);
 		

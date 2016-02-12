@@ -29,9 +29,11 @@ public interface ProductService extends BaseService {
 	
 	public Page<Product> getFeaturedProducts(Language language);
 	
+	public Page<Product> getFeaturedProducts(String languageCode);
+	
 	public Page<Product> getClearanceProducts(Language language);
 	
-	public Page<Product> getNewReleaseProducts(Language language);
+	public Page<Product> getNewArrivalProducts(Language language);
 	
-	public Page<Product> getNewReleaseProducts(String languageCode);
+	public Page<Product> getNewArrivalProducts(String languageCode);
 }
