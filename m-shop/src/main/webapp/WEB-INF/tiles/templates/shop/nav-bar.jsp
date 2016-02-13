@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@	taglib prefix="spring"	uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="container">
     <div class="navbar-header">
@@ -26,7 +27,7 @@
                 <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.home"/> <!-- <b class="caret"></b> --></a>
             </li>
             <li class="dropdown use-yamm yamm-fw">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.laptop"/> <b class="caret"></b></a>
+                <a href="<c:url value='/product/laptop' /> " class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.laptop"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <div class="yamm-content">
@@ -36,17 +37,47 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <h5><spring:message code="label.nav-bar.top-brands"/></h5>
-                                    <ul>
+                                  <!--   <ul>
                                         <li><a href="template-accordions.html">Accordions</a>
                                         </li>
+                                    </ul> -->
+                                    <c:forEach items="${manufacturers}" var="manufacturer">
+                                     <ul>
+                                        <li><a href="<c:url value ='/product/list/laptop/${manufacturer.sefUrl}'/>">${manufacturer.name}</a>
+                                        </li>
                                     </ul>
+                                    </c:forEach>
                                 </div>
                                 <div class="col-sm-3">
                                     <h5><spring:message code="label.nav-bar.price"/></h5>
-                                    <ul>
+                                   <!--  <ul>
                                         <li><a href="template-header-default.html">Default sticky header</a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
+                                    <c:forEach items="${productPriceRanges}" var="priceRange">
+                                     	<ul>
+                                        	<li>
+                                        		<a href="<c:url value = '/product/laptop/${priceRange.sefUrl}' /> ">
+                                        		<c:choose>
+                                        			<c:when test="${priceRange.min.unscaledValue() eq 0}">
+                                        				<spring:message code="label.nav-bar.below" />&nbsp;
+                                        				$<fmt:formatNumber pattern="#,##0" value="${priceRange.max}" type="number"/>
+                                        			</c:when>
+                                        			<c:when test="${empty priceRange.max}">
+                                        				<spring:message code="label.nav-bar.above" />&nbsp;
+                                        				$<fmt:formatNumber pattern="#,##0" value="${priceRange.min}" type="number" />
+                                        			</c:when>
+                                        			<c:otherwise>
+                                        				<spring:message code="label.nav-bar.from" />&nbsp;
+                                        				$<fmt:formatNumber pattern="#,##0" value="${priceRange.min}" type="number" />&nbsp;
+                                        				<spring:message code="label.nav-bar.to" />&nbsp;
+                                        				$<fmt:formatNumber pattern="#,##0" value="${priceRange.max}" type="number" />
+                                        			</c:otherwise>
+                                        		</c:choose>
+                                        		</a>
+                                        	</li>
+                                    	</ul>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
