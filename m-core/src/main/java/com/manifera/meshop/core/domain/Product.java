@@ -28,10 +28,10 @@ import javax.persistence.TableGenerator;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
-import com.google.common.base.Joiner;
 import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
+import com.manifera.meshop.core.util.DomainUtil;
 
 import flexjson.JSON;
 
@@ -51,7 +51,8 @@ public class Product implements Auditable, Serializable {
 
 	@Id
 	@Column(name = "product_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
@@ -147,11 +148,11 @@ public class Product implements Auditable, Serializable {
 		return null;
 	}
 	
-	public String getSelUrl() {
+	public String getSefUrl() {
 		ProductAttributeValue nameAttributeValue = getNameAttributeValue();
 		if(nameAttributeValue != null && !nameAttributeValue.getValue().isEmpty()) {
-			String name = (nameAttributeValue.getValue().toLowerCase() + " " + getId().toString()).replaceAll("('|\")", "");;
-			return Joiner.on("-").join(name.split("\\s+"));
+			String name = (nameAttributeValue.getValue().toLowerCase() + " " + getId().toString());
+			return DomainUtil.getSefUrl(name);
 		}
 		return getId().toString();
 	}

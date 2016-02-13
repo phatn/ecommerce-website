@@ -13,4 +13,6 @@ public interface ManufacturerService extends BaseService {
 	public List<Manufacturer> getManufacturersByCategory(Category category);
 	
 	public List<Manufacturer> getManufacturersByCategoryName(String categoryName);
+	
+	public Manufacturer getBySelUrl(String selUrl);
 }

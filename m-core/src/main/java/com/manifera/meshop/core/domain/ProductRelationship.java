@@ -35,7 +35,9 @@ public class ProductRelationship implements Auditable, Serializable {
 
 	@Id
 	@Column(name = "product_relationship_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_relationship_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", 
+		pkColumnValue = "product_relationship_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	

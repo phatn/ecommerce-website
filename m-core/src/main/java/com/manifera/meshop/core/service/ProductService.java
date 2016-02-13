@@ -27,6 +27,10 @@ public interface ProductService extends BaseService {
 	
 	public Page<Product> getProductsByCategoryIds(Set<Long> categoryIds, Language language , int offset, int limit);
 	
+	public Page<Product> getProductsByManufacturerSefUrl(String manufacturerSefUrl, String languageCode, int offset, int limit);
+	
+	public Page<Product> getByCatSefUrlAndManuSefUrl(String categorySefUrl, String manufacturerSefUrl, String languageCode, int offset, int limit);
+	
 	public Page<Product> getFeaturedProducts(Language language);
 	
 	public Page<Product> getFeaturedProducts(String languageCode);

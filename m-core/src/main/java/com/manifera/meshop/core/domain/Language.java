@@ -31,7 +31,8 @@ public class Language implements Auditable, Serializable {
 
 	@Id
 	@Column(name = "language_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "language_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "language_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Integer id;
 	

@@ -1,11 +1,14 @@
 package com.manifera.meshop.core.dao.test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.ImageSize;
+import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.domain.Product;
 import com.manifera.meshop.core.domain.ProductAttribute;
 import com.manifera.meshop.core.domain.ProductAttributeType;
@@ -20,10 +23,24 @@ public class ProductTest extends AbstractDomainTest {
 		try {
 			tx.begin();
 			
-			// Create products
-			createProducts();
-			tx.commit();
+			/*StringBuilder queryBuilder = new StringBuilder();
+			queryBuilder.append("select distinct p.manufacturer from Product p ");
+			queryBuilder.append("inner join p.categories c inner join c.descriptions cd ");
+			queryBuilder.append("where cd.name = 'Laptop'");*/
 			
+			StringBuilder queryBuilder = new StringBuilder();
+			queryBuilder.append("select distinct m from Manufacturer m ");
+			queryBuilder.append("left join m.products p left join p.categories c ");
+			queryBuilder.append("left join c.descriptions cd ");
+			queryBuilder.append("left join cd.language l ");
+			queryBuilder.append("where cd.name = 'Laptop' or cd.name is null order by m.sortOrder asc");
+			
+			TypedQuery<Manufacturer> query = entityManager.createQuery(queryBuilder.toString(), Manufacturer.class);
+			List<Manufacturer> manufacturers = query.getResultList();
+			for(Manufacturer manufacturer :  manufacturers) {
+				System.out.println("id: " + manufacturer.getId() + ", name: " + manufacturer.getName());
+			}
+			tx.commit();
 		} catch(Exception ex) {
 			System.err.println("Error: " + ex.getMessage());
 			ex.printStackTrace();

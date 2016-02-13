@@ -38,7 +38,8 @@ public class ProductImage implements Auditable, Serializable {
 
 	@Id
 	@Column(name = "product_image_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_image_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_image_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	

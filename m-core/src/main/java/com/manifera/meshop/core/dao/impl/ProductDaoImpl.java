@@ -15,6 +15,7 @@ import com.manifera.meshop.core.dao.common.AbstractGenericDao;
 import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Language;
+import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.domain.Product;
 
 @Repository("productDao")
@@ -213,6 +214,91 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		query.setParameter("code", language.getCode());
 		
 		return query.getSingleResult();
+	}
+
+	@Override
+	public Page<Product> getProductsByManufacturer(Manufacturer manufacturer, Language language, int offset,
+			int limit) {
+		
+		return null;
+	}
+
+	@Override
+	public Page<Product> getProductsByManufacturerId(long manufacturerId, Language language, int offset, int limit) {
+		return null;
+	}
+
+	@Override
+	public Page<Product> getProductsByManufacturerSefUrl(String manufacturerSefUrl, Language language, int offset,
+			int limit) {
+		return getProductsByManufacturerSefUrl(manufacturerSefUrl, language.getCode(), offset, limit);
+	}
+
+	@Override
+	public Page<Product> getProductsByManufacturerSefUrl(String manufacturerSefUrl, String languageCode, int offset,
+			int limit) {
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select DISTINCT p from Product p ");
+		queryBuilder.append("left join p.descriptions pd ");
+		queryBuilder.append("join fetch p.attributes a join fetch a.attributeValues av ");
+		queryBuilder.append("join fetch p.productImages i join  p.manufacturer m ");
+		queryBuilder.append("where pd.language.code = :code ");
+		queryBuilder.append("and m.sefUrl = :sefUrl");
+		
+		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
+		query.setParameter("code", languageCode);
+		query.setParameter("sefUrl", manufacturerSefUrl);
+		query.setFirstResult(offset).setMaxResults(limit);
+		
+		// Count total records
+		TypedQuery<Long> queryCount = getEntityManager().createQuery("select count(*) from Product p join p.manufacturer m where m.sefUrl = :sefUrl", Long.class);
+		queryCount.setParameter("sefUrl", manufacturerSefUrl);
+		Long totalRecords = queryCount.getSingleResult();
+		LOG.info("getProductsByCategoryId method - total records: " + totalRecords);
+		
+		return new Page<Product>(totalRecords, query.getResultList());
+	}
+
+	@Override
+	public Page<Product> getByCatSefUrlAndManuSefUrl(String categorySefUrl, String manufacturerSefUrl,
+			String languageCode, int offset, int limit) {
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select DISTINCT p from Product p ");
+		queryBuilder.append("left join p.categories c ");
+		queryBuilder.append("left join c.descriptions cd ");
+		queryBuilder.append("left join p.descriptions pd ");
+		queryBuilder.append("join fetch p.attributes a join fetch a.attributeValues av ");
+		queryBuilder.append("join fetch p.productImages i join  p.manufacturer m ");
+		queryBuilder.append("where pd.language.code = :pdcode ");
+		queryBuilder.append("and cd.language.code = :cdcode ");
+		queryBuilder.append("and cd.sefUrl = :categorySefUrl ");
+		queryBuilder.append("and m.sefUrl = :manufacturerSefUrl");
+		
+		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
+		query.setParameter("pdcode", languageCode);
+		query.setParameter("cdcode", languageCode);
+		query.setParameter("categorySefUrl", categorySefUrl);
+		query.setParameter("manufacturerSefUrl", manufacturerSefUrl);
+		
+		query.setFirstResult(offset).setMaxResults(limit);
+		
+		// Count total records
+		StringBuilder queryCountBuilder = new StringBuilder();
+		queryCountBuilder.append("select count(*) from Product p ");
+		queryCountBuilder.append("left join p.categories c ");
+		queryCountBuilder.append("left join c.descriptions cd ");
+		queryCountBuilder.append("left join p.manufacturer m ");
+		queryCountBuilder.append("where cd.sefUrl = :categorySefUrl ");
+		queryCountBuilder.append("and m.sefUrl = :manufacturerSefUrl");
+		
+		TypedQuery<Long> queryCount = getEntityManager().createQuery(queryCountBuilder.toString(), Long.class);
+		queryCount.setParameter("categorySefUrl", categorySefUrl);
+		queryCount.setParameter("manufacturerSefUrl", manufacturerSefUrl);
+		
+		Long totalRecords = queryCount.getSingleResult();
+		LOG.info("getProductsByCategoryId method - total records: " + totalRecords);
+		
+		return new Page<Product>(totalRecords, query.getResultList());
 	}
 
 }

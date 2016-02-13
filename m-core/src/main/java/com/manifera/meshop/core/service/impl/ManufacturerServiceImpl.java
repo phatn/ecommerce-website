@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.manifera.meshop.core.dao.CategoryDao;
 import com.manifera.meshop.core.dao.ManufacturerDao;
 import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Manufacturer;
@@ -16,9 +15,6 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
 	@Autowired
 	private ManufacturerDao manufacturerDao;
-	
-	@Autowired
-	private CategoryDao categoryDao;
 	
 	@Override
 	public List<Manufacturer> getManufacturersByCategory(Category category) {
@@ -32,7 +28,12 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
 	@Override
 	public List<Manufacturer> getManufacturersByCategoryName(String categoryName) {
-		return getManufacturersByCategory(categoryDao.getByName(categoryName));
+		return manufacturerDao.getManufacturersByCategoryName(categoryName);
+	}
+
+	@Override
+	public Manufacturer getBySelUrl(String selUrl) {
+		return manufacturerDao.getBySelUrl(selUrl);
 	}
 
 }

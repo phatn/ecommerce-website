@@ -37,7 +37,8 @@ public class ShoppingCart implements Auditable, Serializable {
 	
 	@Id
 	@Column(name = "shopping_cart_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "shopping_cart_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "shopping_cart_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	

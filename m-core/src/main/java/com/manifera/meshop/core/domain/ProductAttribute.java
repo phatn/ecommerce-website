@@ -41,7 +41,8 @@ public class ProductAttribute implements Auditable, Serializable {
 
 	@Id
 	@Column(name = "product_attribute_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_attribute_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "product_attribute_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	

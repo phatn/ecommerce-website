@@ -3,6 +3,7 @@ package com.manifera.meshop.core.dao.test;
 import javax.persistence.EntityTransaction;
 
 import com.manifera.meshop.core.domain.Manufacturer;
+import com.manifera.meshop.core.util.DomainUtil;
 
 public class ManufacturerTest extends AbstractDomainTest {
 	
@@ -12,13 +13,27 @@ public class ManufacturerTest extends AbstractDomainTest {
 			tx.begin();
 			
 			// Create categories
-			/*createManufacturerApple();
-			createManufacturerDell();
-			createManufacturerLenovo();
-			createManufacturerAcer();
-			createManufacturerAsus();
-			createManufacturerHP();
-			createManufacturerToshiba();*/
+			
+			Manufacturer apple = manufacturerDao.getByName("Apple (Macbook)");
+			apple.setSefUrl(DomainUtil.getSefUrl(apple.getName()));
+			
+			Manufacturer dell = manufacturerDao.getByName("Dell");
+			dell.setSefUrl(DomainUtil.getSefUrl(dell.getName()));
+			
+			Manufacturer lenovo = manufacturerDao.getByName("Lenovo");
+			lenovo.setSefUrl(DomainUtil.getSefUrl(lenovo.getName()));
+			
+			Manufacturer acer = manufacturerDao.getByName("Acer");
+			acer.setSefUrl(DomainUtil.getSefUrl(acer.getName()));
+			
+			Manufacturer asus = manufacturerDao.getByName("Asus");
+			asus.setSefUrl(DomainUtil.getSefUrl(asus.getName()));
+			
+			Manufacturer hp = manufacturerDao.getByName("HP");
+			hp.setSefUrl(DomainUtil.getSefUrl(hp.getName()));
+			
+			Manufacturer toshiba = manufacturerDao.getByName("Toshiba");
+			toshiba.setSefUrl(DomainUtil.getSefUrl(toshiba.getName()));
 			
 			tx.commit();
 		} catch(Exception ex) {

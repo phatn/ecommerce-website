@@ -36,7 +36,8 @@ public class Manufacturer implements Auditable, Serializable {
 
 	@Id
 	@Column(name = "manufacturer_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "manufacturer_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", 
+		pkColumnName = "gen_name", valueColumnName = "gen_val", pkColumnValue = "manufacturer_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
@@ -52,6 +53,20 @@ public class Manufacturer implements Auditable, Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturer")
 	private Set<Product> products = new HashSet<>();
 	
+	@Column(name = "sort_order")
+	private Integer sortOrder;
+	
+	@Column(name = "sef_url")
+	private String sefUrl;
+	
+	public String getSefUrl() {
+		return sefUrl;
+	}
+
+	public void setSefUrl(String sefUrl) {
+		this.sefUrl = sefUrl;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -92,5 +107,13 @@ public class Manufacturer implements Auditable, Serializable {
 
 	public void setProducts(Set<Product> products) {
 		this.products = products;
+	}
+
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 }

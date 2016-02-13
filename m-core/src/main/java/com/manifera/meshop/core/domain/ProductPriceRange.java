@@ -1,6 +1,7 @@
 package com.manifera.meshop.core.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -9,8 +10,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -18,33 +17,33 @@ import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
 
-
-/**
- * 
- * @author Phat Nguyen
- * 
- */
-
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "es_product_description")
-public class ProductDescription implements Auditable, Serializable {
-
+@Table(name = "es_product_price_range")
+public class ProductPriceRange implements Auditable, Serializable {
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@Column(name = "product_description_id")
-	@TableGenerator(name = "table_generator", table = "es_id_gen", 
-		pkColumnName = "gen_name", valueColumnName = "gen_val", 
-		pkColumnValue = "product_description_id")
+	@Column(name = "product_price_range_id")
+	@TableGenerator(name = "table_generator", table = "es_id_gen", pkColumnName = "gen_name", 
+		valueColumnName = "gen_val", pkColumnValue = "product_price_range_id")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
 	private Long id;
 	
-	@Column(name = "description")
-	private String description;
+	@Column(name = "min")
+	private BigDecimal min;
 	
-	// Search engine friendly url
-	@Column(name = "sef_url", length = 120)
+	@Column(name = "max")
+	private BigDecimal max;
+
+	@Embedded
+	private AuditSection auditSection = new AuditSection();
+	
+	@Column(name = "sort_order")
+	private Integer sortOrder;
+	
+	@Column(name = "sef_url")
 	private String sefUrl;
 	
 	public String getSefUrl() {
@@ -55,17 +54,6 @@ public class ProductDescription implements Auditable, Serializable {
 		this.sefUrl = sefUrl;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "language_id")
-	private Language language;
-
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
-	
-	@Embedded
-	private AuditSection auditSection = new AuditSection();
-	
 	public Long getId() {
 		return id;
 	}
@@ -74,35 +62,42 @@ public class ProductDescription implements Auditable, Serializable {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public Integer getSortOrder() {
+		return sortOrder;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
-	public Language getLanguage() {
-		return language;
+	public BigDecimal getMin() {
+		return min;
 	}
 
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
-	
-	public Product getProduct() {
-		return product;
+	public void setMin(BigDecimal min) {
+		this.min = min;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public BigDecimal getMax() {
+		return max;
 	}
 
+	public void setMax(BigDecimal max) {
+		this.max = max;
+	}
+
+	@Override
 	public AuditSection getAuditSection() {
 		return auditSection;
 	}
 
+	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
+	}
+	
+	@Override
+	public String toString() {
+		return "[Min] " + min + ", [Max] " + max;
 	}
 }

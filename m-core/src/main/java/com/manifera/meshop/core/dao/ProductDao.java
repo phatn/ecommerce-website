@@ -6,6 +6,7 @@ import java.util.Set;
 import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Language;
+import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.domain.Product;
 
 public interface ProductDao {
@@ -23,6 +24,16 @@ public interface ProductDao {
 	public Page<Product> getProductsByCategoryId(long categoryId, Language language, int offset, int limit);
 	
 	public Page<Product> getProductsByCategories(List<Category> categories, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByManufacturer(Manufacturer manufacturer, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByManufacturerId(long manufacturerId, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByManufacturerSefUrl(String manufacturerSefUrl, Language language, int offset, int limit);
+	
+	public Page<Product> getProductsByManufacturerSefUrl(String manufacturerSefUrl, String languageCode, int offset, int limit);
+	
+	public Page<Product> getByCatSefUrlAndManuSefUrl(String categorySefUrl, String manufacturerSefUrl, String languageCode, int offset, int limit);
 	
 	public Page<Product> getProductsByCategoryIds(Set<Long> categoryIds, Language language , int offset, int limit);
 	

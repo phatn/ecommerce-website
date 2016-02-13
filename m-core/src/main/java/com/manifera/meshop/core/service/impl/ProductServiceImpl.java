@@ -78,4 +78,16 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> getFeaturedProducts(String languageCode) {
 		return productDao.getFeaturedProducts(languageCode);
 	}
+
+	@Override
+	public Page<Product> getProductsByManufacturerSefUrl(String manufacturerSefUrl, String languageCode, int offset,
+			int limit) {
+		return productDao.getProductsByManufacturerSefUrl(manufacturerSefUrl, languageCode, offset, limit);
+	}
+
+	@Override
+	public Page<Product> getByCatSefUrlAndManuSefUrl(String categorySefUrl, String manufacturerSefUrl,
+			String languageCode, int offset, int limit) {
+		return productDao.getByCatSefUrlAndManuSefUrl(categorySefUrl, manufacturerSefUrl, languageCode, offset, limit);
+	}
 }

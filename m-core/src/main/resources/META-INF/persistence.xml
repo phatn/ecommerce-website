@@ -30,6 +30,7 @@
 		<class>com.manifera.meshop.core.domain.Billing</class>
 		<class>com.manifera.meshop.core.domain.Manufacturer</class>
 		<class>com.manifera.meshop.core.domain.ManufacturerDescription</class>
+		<class>com.manifera.meshop.core.domain.ProductPriceRange</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 	</persistence-unit>
@@ -60,6 +61,7 @@
 		<class>com.manifera.meshop.core.domain.Billing</class>
 		<class>com.manifera.meshop.core.domain.Manufacturer</class>
 		<class>com.manifera.meshop.core.domain.ManufacturerDescription</class>
+		<class>com.manifera.meshop.core.domain.ProductPriceRange</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
@@ -71,7 +73,7 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			 
 			<!-- Hibernate properties -->
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />

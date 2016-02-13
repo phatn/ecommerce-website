@@ -7,6 +7,7 @@ import com.manifera.meshop.core.dao.impl.CategoryDaoImpl;
 import com.manifera.meshop.core.dao.impl.LanguageDaoImpl;
 import com.manifera.meshop.core.dao.impl.ManufacturerDaoImpl;
 import com.manifera.meshop.core.dao.impl.ProductDaoImpl;
+import com.manifera.meshop.core.dao.impl.ProductPriceRangeDaoImpl;
 
 public abstract class AbstractDomainTest {
 	
@@ -22,6 +23,8 @@ private static EntityManagerFactory emf;
 	
 	protected static LanguageDaoImpl languageDao = new LanguageDaoImpl();
 	
+	protected static ProductPriceRangeDaoImpl productPriceRangeDao = new ProductPriceRangeDaoImpl();
+	
 	static {
 		emf = PersistenceHelper.getEntityManagerFactory();
 		entityManager = emf.createEntityManager();
@@ -29,6 +32,7 @@ private static EntityManagerFactory emf;
 		categoryDao.setEntityManager(entityManager);
 		productDao.setEntityManager(entityManager);
 		languageDao.setEntityManager(entityManager);
+		productPriceRangeDao.setEntityManager(entityManager);
 	}
 	
 	public static void closeEntityManager() {

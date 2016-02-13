@@ -11,6 +11,10 @@ public interface ManufacturerDao {
 	
 	public List<Manufacturer> getManufacturersByCategory(Category category);
 	
+	public List<Manufacturer> getManufacturersByCategoryName(String categoryName);
+	
 	public Manufacturer getByName(String name);
+	
+	public Manufacturer getBySelUrl(String selUrl);
 	
 }
