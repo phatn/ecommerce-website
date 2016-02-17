@@ -15,12 +15,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Category;
-import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.domain.Product;
-import com.manifera.meshop.core.domain.ProductPriceRange;
 import com.manifera.meshop.core.service.CategoryService;
-import com.manifera.meshop.core.service.ManufacturerService;
-import com.manifera.meshop.core.service.ProductPriceRangeService;
 import com.manifera.meshop.core.service.ProductService;
 
 /**
@@ -40,14 +36,9 @@ public class HomeController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@Autowired
-	private ManufacturerService manufacturerService;
-	
-	@Autowired
-	private ProductPriceRangeService productPriceRangeService;
-	
 	@RequestMapping("/")
 	public String home(Model model, HttpServletRequest request) {
+		
 		Locale locale = RequestContextUtils.getLocale(request);
 		
 		List<Category> categories = categoryService.getAllCategories(locale.getLanguage());
@@ -59,15 +50,9 @@ public class HomeController {
 		Page<Product> featuredProduct = productService.getFeaturedProducts(locale.getLanguage());
 		LOG.debug("Total featured products: " + featuredProduct.getTotalRecords());
 		
-		List<Manufacturer> manufacturers = manufacturerService.getManufacturersByCategoryName("Laptop");
-		
-		List<ProductPriceRange> productPriceRanges = productPriceRangeService.getAllPriceRanges();
-		
 		model.addAttribute("categories", categories);
 		model.addAttribute("newArrivalProduct", newArrivalProduct);
 		model.addAttribute("featuredProduct", featuredProduct);
-		model.addAttribute("manufacturers", manufacturers);
-		model.addAttribute("productPriceRanges", productPriceRanges);
 		
 		return "home";
 	}

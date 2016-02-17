@@ -37,6 +37,7 @@ public class ProductController {
 		
 		Page<Product> productPage = productService.getByCatSefUrlAndManuSefUrl(categorySefUrl, manufacturerSefUrl, locale.getLanguage(), offset, limit);
 		model.addAttribute("productPage", productPage);
+		model.addAttribute("currentPage", page);
 		
 		return "products";
 	}

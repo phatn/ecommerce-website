@@ -22,4 +22,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/shop/home.jsp" />
 	</definition>
 	
+	<!-- Products -->
+	<definition name="products" extends="master-layout">
+		<put-attribute name="title" value="MyEshop - Products" />
+		<put-attribute name="home-carousel" value="" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/products.jsp" />
+	</definition>
+	
 </tiles-definitions>

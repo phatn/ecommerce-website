@@ -3,12 +3,14 @@
 <%@	taglib prefix="spring"	uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:url var="contextPath" value="/" />
+
 <div class="container">
     <div class="navbar-header">
-
-        <a class="navbar-brand home" href="index.html">
-            <img src="<c:url value='/resources/img/logo.png' /> " alt="MyEshop Logo" class="hidden-xs hidden-sm">
-            <img src="<c:url value='/resources/img/logo.png' /> " alt="MyEshop Logo" class="visible-xs visible-sm"><span class="sr-only">MyEshop - go to homepage</span>
+		
+        <a class="navbar-brand home" href="${contextPath}">
+            <img src="${contextPath}/resources/img/logo.png" alt="MyEshop Logo" class="hidden-xs hidden-sm">
+            <img src="${contextPath}/resources/img/logo.png" alt="MyEshop Logo" class="visible-xs visible-sm"><span class="sr-only">MyEshop - go to homepage</span>
             <%-- <img src="<c:url value='/resources/img/logo-small.png' /> " alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span> --%>
         </a>
         <div class="navbar-buttons">
