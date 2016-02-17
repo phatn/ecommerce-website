@@ -284,7 +284,7 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		
 		// Count total records
 		StringBuilder queryCountBuilder = new StringBuilder();
-		queryCountBuilder.append("select count(*) from Product p ");
+		queryCountBuilder.append("select count(DISTINCT p) from Product p ");
 		queryCountBuilder.append("left join p.categories c ");
 		queryCountBuilder.append("left join c.descriptions cd ");
 		queryCountBuilder.append("left join p.manufacturer m ");

@@ -1,10 +1,16 @@
 package com.manifera.meshop.core.dao.common;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.manifera.meshop.core.constant.Constant;
 
 public class Page<T> {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(Page.class);
 	
 	private int currentPage = 1;
 	
@@ -12,7 +18,7 @@ public class Page<T> {
 	
 	private int pageSize = Constant.PAGE_SIZE;
 	
-	private int totalPages;
+	private List<Integer> pages = new ArrayList<>();
 	
 	private List<T> list;
 
@@ -22,8 +28,21 @@ public class Page<T> {
 		this.list = list;
 	}
 	
-	public Page(long totalRecord, List<T> list) {
-		this.totalRecords = totalRecord;
+	public List<Integer> getPages() {
+		pages.clear();
+		int totalPages = (int)Math.ceil((double)totalRecords / Constant.PAGE_SIZE);
+		LOG.info("Total records: " + totalRecords + ", page size: " + 
+				Constant.PAGE_SIZE + ", total pages: " + totalPages);
+		System.out.println("Total records: " + totalRecords + ", page size: " + 
+				Constant.PAGE_SIZE + ", total pages: " + totalPages);
+		for(int i = 1; i <= totalPages; i++) {
+			pages.add(i);
+		}
+		return pages;
+	}
+	
+	public Page(long totalRecords, List<T> list) {
+		this.totalRecords = totalRecords;
 		this.list = list;
 	}
 	
@@ -49,14 +68,6 @@ public class Page<T> {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-	}
-
-	public int getTotalPages() {
-		return totalPages;
-	}
-
-	public void setTotalPages(int totalPages) {
-		this.totalPages = totalPages;
 	}
 
 	public List<T> getList() {
