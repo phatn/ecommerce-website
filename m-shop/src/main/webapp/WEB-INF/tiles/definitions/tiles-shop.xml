@@ -22,11 +22,18 @@
 		<put-attribute name="content" value="/WEB-INF/views/shop/home.jsp" />
 	</definition>
 	
-	<!-- Products -->
-	<definition name="products" extends="master-layout">
+	<!-- Products by category and manufacturer -->
+	<definition name="productsByCatAndManu" extends="master-layout">
 		<put-attribute name="title" value="MyEshop - Products" />
 		<put-attribute name="home-carousel" value="" />
-		<put-attribute name="content" value="/WEB-INF/views/shop/products.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/productsByCatAndManu.jsp" />
+	</definition>
+	
+	<!-- Products by category and manufacturer -->
+	<definition name="productsByCatAndPriceRange" extends="master-layout">
+		<put-attribute name="title" value="MyEshop - Products" />
+		<put-attribute name="home-carousel" value="" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/productsByCatAndPriceRange.jsp" />
 	</definition>
 	
 </tiles-definitions>

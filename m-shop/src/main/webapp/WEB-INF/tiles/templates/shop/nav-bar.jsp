@@ -45,7 +45,7 @@
                                     </ul> -->
                                     <c:forEach items="${manufacturers}" var="manufacturer">
                                      <ul>
-                                        <li><a href="<c:url value ='/product/list/laptop/${manufacturer.sefUrl}'/>">${manufacturer.name}</a>
+                                        <li><a href="<c:url value ='/product/list/laptop/manufacturer/${manufacturer.sefUrl}'/>">${manufacturer.name}</a>
                                         </li>
                                     </ul>
                                     </c:forEach>
@@ -59,7 +59,7 @@
                                     <c:forEach items="${productPriceRanges}" var="priceRange">
                                      	<ul>
                                         	<li>
-                                        		<a href="<c:url value = '/product/laptop/${priceRange.sefUrl}' /> ">
+                                        		<a href="<c:url value = '/product/list/laptop/price-range/${priceRange.sefUrl}' /> ">
                                         		<c:choose>
                                         			<c:when test="${priceRange.min.unscaledValue() eq 0}">
                                         				<spring:message code="label.nav-bar.below" />&nbsp;
