@@ -7,6 +7,7 @@ import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Language;
 import com.manifera.meshop.core.domain.Product;
+import com.manifera.meshop.core.domain.ProductPriceRange;
 import com.manifera.meshop.core.service.common.BaseService;
 
 public interface ProductService extends BaseService {
@@ -40,4 +41,6 @@ public interface ProductService extends BaseService {
 	public Page<Product> getNewArrivalProducts(Language language);
 	
 	public Page<Product> getNewArrivalProducts(String languageCode);
+	
+	public Page<Product> getByCatUrlAndPriceRange(String categorySefUrl, ProductPriceRange priceRange, String languageCode, int offset, int limit);
 }

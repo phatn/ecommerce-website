@@ -11,6 +11,7 @@ import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Language;
 import com.manifera.meshop.core.domain.Product;
+import com.manifera.meshop.core.domain.ProductPriceRange;
 import com.manifera.meshop.core.service.ProductService;
 
 @Service("productService")
@@ -89,5 +90,11 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> getByCatSefUrlAndManuSefUrl(String categorySefUrl, String manufacturerSefUrl,
 			String languageCode, int offset, int limit) {
 		return productDao.getByCatSefUrlAndManuSefUrl(categorySefUrl, manufacturerSefUrl, languageCode, offset, limit);
+	}
+
+	@Override
+	public Page<Product> getByCatUrlAndPriceRange(String categorySefUrl, ProductPriceRange priceRange,
+			String languageCode, int offset, int limit) {
+		return productDao.getByCatUrlAndPriceRange(categorySefUrl, priceRange, languageCode, offset, limit);
 	}
 }

@@ -17,6 +17,7 @@ import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Language;
 import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.domain.Product;
+import com.manifera.meshop.core.domain.ProductPriceRange;
 
 @Repository("productDao")
 public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements ProductDao {
@@ -296,7 +297,51 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		queryCount.setParameter("manufacturerSefUrl", manufacturerSefUrl);
 		
 		Long totalRecords = queryCount.getSingleResult();
-		LOG.info("getProductsByCategoryId method - total records: " + totalRecords);
+		LOG.info("getByCatSefUrlAndManuSefUrl method - total records: " + totalRecords);
+		
+		return new Page<Product>(totalRecords, query.getResultList());
+	}
+
+	@Override
+	public Page<Product> getByCatUrlAndPriceRange(String categorySefUrl, ProductPriceRange priceRange,
+			String languageCode, int offset, int limit) {
+		
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select DISTINCT p from Product p ");
+		queryBuilder.append("left join p.categories c ");
+		queryBuilder.append("left join c.descriptions cd ");
+		queryBuilder.append("left join p.descriptions pd ");
+		queryBuilder.append("join fetch p.attributes a join fetch a.attributeValues av ");
+		queryBuilder.append("join fetch p.productImages i ");
+		queryBuilder.append("where pd.language.code = :pdcode ");
+		queryBuilder.append("and cd.language.code = :cdcode ");
+		queryBuilder.append("and cd.sefUrl = :categorySefUrl ");
+		queryBuilder.append("and p.price between :minPrice and :maxPrice");
+		
+		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
+		query.setParameter("pdcode", languageCode);
+		query.setParameter("cdcode", languageCode);
+		query.setParameter("categorySefUrl", categorySefUrl);
+		query.setParameter("minPrice", priceRange.getMin());
+		query.setParameter("maxPrice", priceRange.getMax());
+		
+		query.setFirstResult(offset).setMaxResults(limit);
+		
+		// Count total records
+		StringBuilder queryCountBuilder = new StringBuilder();
+		queryCountBuilder.append("select count(DISTINCT p) from Product p ");
+		queryCountBuilder.append("left join p.categories c ");
+		queryCountBuilder.append("left join c.descriptions cd ");
+		queryCountBuilder.append("where cd.sefUrl = :categorySefUrl ");
+		queryCountBuilder.append("and p.price between :minPrice and :maxPrice");
+		
+		TypedQuery<Long> queryCount = getEntityManager().createQuery(queryCountBuilder.toString(), Long.class);
+		queryCount.setParameter("categorySefUrl", categorySefUrl);
+		queryCount.setParameter("minPrice", priceRange.getMin());
+		queryCount.setParameter("maxPrice", priceRange.getMax());
+		
+		Long totalRecords = queryCount.getSingleResult();
+		LOG.info("getByCatUrlAndPriceRange method - total records: " + totalRecords);
 		
 		return new Page<Product>(totalRecords, query.getResultList());
 	}

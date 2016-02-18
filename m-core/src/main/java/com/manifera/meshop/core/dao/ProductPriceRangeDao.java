@@ -10,6 +10,6 @@ public interface ProductPriceRangeDao {
 	
 	public List<ProductPriceRange> getAllPriceRanges();
 	
-	public ProductPriceRange getBySelUrl(String selUrl);
+	public ProductPriceRange getBySefUrl(String sefUrl);
 	
 }

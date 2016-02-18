@@ -23,9 +23,9 @@ public class ProductPriceRangeDaoImpl extends
 	}
 
 	@Override
-	public ProductPriceRange getBySelUrl(String selUrl) {
-		TypedQuery<ProductPriceRange> query = getEntityManager().createQuery("select pr from ProductPriceRange pr where pr.selUrl = :selUrl", ProductPriceRange.class);
-		query.setParameter("selUrl", selUrl);
+	public ProductPriceRange getBySefUrl(String sefUrl) {
+		TypedQuery<ProductPriceRange> query = getEntityManager().createQuery("select pr from ProductPriceRange pr where pr.sefUrl = :sefUrl", ProductPriceRange.class);
+		query.setParameter("sefUrl", sefUrl);
 		return query.getSingleResult();
 	}
 

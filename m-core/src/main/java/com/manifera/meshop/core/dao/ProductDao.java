@@ -8,6 +8,7 @@ import com.manifera.meshop.core.domain.Category;
 import com.manifera.meshop.core.domain.Language;
 import com.manifera.meshop.core.domain.Manufacturer;
 import com.manifera.meshop.core.domain.Product;
+import com.manifera.meshop.core.domain.ProductPriceRange;
 
 public interface ProductDao {
 	 
@@ -46,5 +47,7 @@ public interface ProductDao {
 	public Page<Product> getNewArrivalProducts(Language language);
 	
 	public Page<Product> getNewArrivalProducts(String languageCode);
+	
+	public Page<Product> getByCatUrlAndPriceRange(String categorySefUrl, ProductPriceRange priceRange, String languageCode, int offset, int limit);
 	
 }

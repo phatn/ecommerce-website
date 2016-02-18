@@ -26,7 +26,7 @@ public class ProductPriceRangeServiceImpl implements ProductPriceRangeService {
 	}
 
 	@Override
-	public ProductPriceRange getBySelUrl(String selUrl) {
-		return productPriceRangeDao.getBySelUrl(selUrl);
+	public ProductPriceRange getBySefUrl(String sefUrl) {
+		return productPriceRangeDao.getBySefUrl(sefUrl);
 	}
 }
