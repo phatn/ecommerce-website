@@ -54,4 +54,6 @@ public interface ProductDao {
 	
 	public Product getBySefUrl(String productSefUrl, String languageCode);
 	
+	public List<Product> getByIds(List<Long> productIds);
+	
 }

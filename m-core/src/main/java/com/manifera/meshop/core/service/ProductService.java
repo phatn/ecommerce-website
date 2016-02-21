@@ -51,4 +51,6 @@ public interface ProductService extends BaseService {
 			ProductPriceRange priceRange, String languageCode, int offset, int limit);
 	
 	public Product getBySefUrl(String productSefUrl, String languageCode);
+	
+	public List<Product> getByIds(List<Long> productIds);
 }

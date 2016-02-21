@@ -108,4 +108,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getBySefUrl(productSefUrl, languageCode);
 	}
 
+	@Override
+	public List<Product> getByIds(List<Long> productIds) {
+		return productDao.getByIds(productIds);
+	}
+
 }

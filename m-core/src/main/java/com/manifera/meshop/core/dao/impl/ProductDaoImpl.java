@@ -212,9 +212,9 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("select p from Product p ");
 		queryBuilder.append("left join fetch p.descriptions pd ");
-		queryBuilder.append("join fetch p.attributes a join fetch a.attributeValues av ");
-		queryBuilder.append("join fetch p.productImages ");
-		queryBuilder.append("and p.id = :id and pd.language.code = :code");
+		queryBuilder.append("left join fetch p.attributes a join fetch a.attributeValues av ");
+		queryBuilder.append("left join fetch p.productImages i ");
+		queryBuilder.append("where p.id = :id and pd.language.code = :code");
 		
 		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
 		query.setParameter("id", id);
@@ -368,6 +368,20 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		query.setParameter("productSefUrl", productSefUrl);
 		
 		return query.getSingleResult();
+	}
+
+	@Override
+	public List<Product> getByIds(List<Long> productIds) {
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select DISTINCT p from Product p left join fetch p.attributes a ");
+		queryBuilder.append("left join fetch a.attributeValues av left join fetch p.productImages i ");
+		queryBuilder.append("where p.id IN :ids");
+		
+		TypedQuery<Product> query = getEntityManager().createQuery(
+				queryBuilder.toString(), Product.class);
+		query.setParameter("ids", productIds);
+		
+		return query.getResultList();
 	}
 
 }
