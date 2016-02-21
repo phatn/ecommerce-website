@@ -3,9 +3,11 @@ package com.manifera.meshop.core.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,9 +30,11 @@ import javax.persistence.TableGenerator;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
+import com.manifera.meshop.core.constant.Constant;
 import com.manifera.meshop.core.domain.common.AuditListener;
 import com.manifera.meshop.core.domain.common.AuditSection;
 import com.manifera.meshop.core.domain.common.Auditable;
+import com.manifera.meshop.core.domain.common.Pair;
 import com.manifera.meshop.core.util.DomainUtil;
 
 import flexjson.JSON;
@@ -121,7 +125,58 @@ public class Product implements Auditable, Serializable {
 	
 	//===================== CUSTOM METHODS =======================
 	
+	/**
+	 * 
+	 * @return Pair<BigImage, SmallImage> 
+	 * 
+	 */
+	
+	public List<Pair<String, String>> getPairImages() {
+		List<Pair<String, String>> pairImages = new ArrayList<>();
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.MEDIUM && image.isActive()) {
+					pairImages.add(new Pair<String, String>(
+							Constant.PRODUCT_IMAGE_ROOT_PATH + "/" + image.getImage(), 
+							Constant.PRODUCT_IMAGE_ROOT_PATH + "/" + 
+									ImageSize.SMALL + "/" + 
+									getFileName(image.getImage())));
+				}
+			}
+		}
+		return pairImages;
+	}
+	public Map<String, String> getImageMap() {
+		Map<String, String> pairImageMap = new HashMap<>();
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.MEDIUM && image.isActive()) {
+					pairImageMap.put(
+							Constant.PRODUCT_IMAGE_ROOT_PATH + "/" + image.getImage(), 
+							Constant.PRODUCT_IMAGE_ROOT_PATH + "/" + 
+									ImageSize.SMALL + "/" + 
+									getFileName(image.getImage()));
+				}
+			}
+		}
+		return pairImageMap;
+	}
+	private String getFileName(String path) {
+		int index = path.indexOf("/");
+		return path.substring(index + 1);
+	}
 	public ProductImage getMediumImage() {
+		if(getProductImages() != null) {
+			for(ProductImage image : getProductImages()) {
+				if(image.getImageSize() == ImageSize.MEDIUM && image.isActive()) {
+					return image;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public ProductImage getSmallImage() {
 		if(getProductImages() != null) {
 			for(ProductImage image : getProductImages()) {
 				if(image.getImageSize() == ImageSize.MEDIUM && image.isActive()) {
@@ -151,7 +206,7 @@ public class Product implements Auditable, Serializable {
 	public String getSefUrl() {
 		ProductAttributeValue nameAttributeValue = getNameAttributeValue();
 		if(nameAttributeValue != null && !nameAttributeValue.getValue().isEmpty()) {
-			String name = (nameAttributeValue.getValue().toLowerCase() + " " + getId().toString());
+			String name = (nameAttributeValue.getValue().toLowerCase());
 			return DomainUtil.getSefUrl(name);
 		}
 		return getId().toString();
@@ -161,17 +216,6 @@ public class Product implements Auditable, Serializable {
 		if(getAttributes() != null) {
 			Iterator<ProductAttribute> it = getAttributes().iterator();
 			return it.next();
-		}
-		return null;
-	}
-	
-	public ProductImage getSmallImage() {
-		if(getProductImages() != null) {
-			for(ProductImage image : getProductImages()) {
-				if(image.getImageSize() == ImageSize.SMALL) {
-					return image;
-				}
-			}
 		}
 		return null;
 	}
@@ -214,7 +258,7 @@ public class Product implements Auditable, Serializable {
 		return bigImages;
 	}
 	
-	public ProductDescription getDescription() {
+	public ProductDescription getProductDescription() {
 		if(descriptions != null && !descriptions.isEmpty()) {
 			return descriptions.iterator().next();
 		}

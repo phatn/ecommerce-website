@@ -37,4 +37,8 @@ public enum ImageSize {
 		return width;
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString().toLowerCase();
+	}
 }

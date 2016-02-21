@@ -135,4 +135,5 @@ public class ProductImage implements Auditable, Serializable {
 	public String getProductImage() {
 		return Constant.PRODUCT_IMAGE_ROOT_PATH + "/" + image;
 	}
+	
 }

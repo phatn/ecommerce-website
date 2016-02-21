@@ -203,6 +203,12 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 	
 	@Override
 	public Product getById(long id, Language language) {
+		return getById(id, language.getCode());
+	}
+
+	@Override
+	public Product getById(long id, String languageCode) {
+		
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("select p from Product p ");
 		queryBuilder.append("left join fetch p.descriptions pd ");
@@ -212,11 +218,11 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		
 		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
 		query.setParameter("id", id);
-		query.setParameter("code", language.getCode());
+		query.setParameter("code", languageCode);
 		
 		return query.getSingleResult();
 	}
-
+	
 	@Override
 	public Page<Product> getProductsByManufacturer(Manufacturer manufacturer, Language language, int offset,
 			int limit) {
@@ -344,6 +350,24 @@ public class ProductDaoImpl extends AbstractGenericDao<Product, Long> implements
 		LOG.info("getByCatUrlAndPriceRange method - total records: " + totalRecords);
 		
 		return new Page<Product>(totalRecords, query.getResultList());
+	}
+
+	@Override
+	public Product getBySefUrl(String productSefUrl, String languageCode) {
+		
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select DISTINCT p from Product p ");
+		queryBuilder.append("left join fetch p.descriptions pd ");
+		queryBuilder.append("left join fetch p.attributes a join fetch a.attributeValues av ");
+		queryBuilder.append("left join fetch p.productImages i ");
+		queryBuilder.append("where pd.language.code = :languageCode ");
+		queryBuilder.append("and av.sefUrl = :productSefUrl");
+		
+		TypedQuery<Product> query = getEntityManager().createQuery(queryBuilder.toString(), Product.class);
+		query.setParameter("languageCode", languageCode);
+		query.setParameter("productSefUrl", productSefUrl);
+		
+		return query.getSingleResult();
 	}
 
 }

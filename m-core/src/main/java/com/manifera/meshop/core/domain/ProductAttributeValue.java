@@ -50,6 +50,10 @@ public class ProductAttributeValue implements Auditable, Serializable {
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
 
+	// Search engine friendly url
+	@Column(name = "sef_url", length = 120)
+	private String sefUrl;
+	
 	public AuditSection getAuditSection() {
 		return auditSection;
 	}
@@ -81,4 +85,13 @@ public class ProductAttributeValue implements Auditable, Serializable {
 	public void setAttribute(ProductAttribute attribute) {
 		this.attribute = attribute;
 	}
+
+	public String getSefUrl() {
+		return sefUrl;
+	}
+
+	public void setSefUrl(String sefUrl) {
+		this.sefUrl = sefUrl;
+	}
+	
 }

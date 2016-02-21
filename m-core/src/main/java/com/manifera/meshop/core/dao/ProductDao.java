@@ -16,6 +16,8 @@ public interface ProductDao {
 	
 	public Product getById(long id, Language language);
 	
+	public Product getById(long id, String languageCode);
+	
 	public List<Product> getAllProducts(Language language);
 	
 	public Page<Product> getAllProducts(Language language, int offet, int limit);
@@ -49,5 +51,7 @@ public interface ProductDao {
 	public Page<Product> getNewArrivalProducts(String languageCode);
 	
 	public Page<Product> getByCatUrlAndPriceRange(String categorySefUrl, ProductPriceRange priceRange, String languageCode, int offset, int limit);
+	
+	public Product getBySefUrl(String productSefUrl, String languageCode);
 	
 }

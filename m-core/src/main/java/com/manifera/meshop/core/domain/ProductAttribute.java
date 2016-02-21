@@ -2,7 +2,6 @@ package com.manifera.meshop.core.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -93,13 +92,13 @@ public class ProductAttribute implements Auditable, Serializable {
 		this.attributeValues = attributeValues;
 	}
 
-	public ProductAttributeValue getAttributeValue() {
+	/*public ProductAttributeValue getAttributeValue() {
 		if(getAttributeValues() != null) {
 			Iterator<ProductAttributeValue> it = getAttributeValues().iterator();
 			return it.next();
 		}
 		return null;
-	}
+	}*/
 
 	public Product getProduct() {
 		return product;

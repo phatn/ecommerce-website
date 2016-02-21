@@ -43,18 +43,6 @@ public class ProductDescription implements Auditable, Serializable {
 	@Column(name = "description")
 	private String description;
 	
-	// Search engine friendly url
-	@Column(name = "sef_url", length = 120)
-	private String sefUrl;
-	
-	public String getSefUrl() {
-		return sefUrl;
-	}
-
-	public void setSefUrl(String sefUrl) {
-		this.sefUrl = sefUrl;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "language_id")
 	private Language language;

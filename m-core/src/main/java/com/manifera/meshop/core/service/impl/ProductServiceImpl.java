@@ -26,6 +26,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Product getById(long id, String languageCode) {
+		return productDao.getById(id, languageCode);
+	}
+	
+	@Override
 	public List<Product> getAllProducts(Language language) {
 		return productDao.getAllProducts(language);
 	}
@@ -97,4 +102,10 @@ public class ProductServiceImpl implements ProductService {
 			String languageCode, int offset, int limit) {
 		return productDao.getByCatUrlAndPriceRange(categorySefUrl, priceRange, languageCode, offset, limit);
 	}
+
+	@Override
+	public Product getBySefUrl(String productSefUrl, String languageCode) {
+		return productDao.getBySefUrl(productSefUrl, languageCode);
+	}
+
 }

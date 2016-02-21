@@ -11,7 +11,7 @@ public class DomainUtil {
 			return "";
 		}
 		
-		aString = aString.replaceAll("('|\")", "").replaceAll("[()]", "").toLowerCase();
+		aString = aString.replaceAll("('|\")", "").replaceAll("[()]", "").replace(".", " ").replaceAll("-", "").toLowerCase();
 		return Joiner.on("-").join(aString.split("\\s+"));
 	}
 }
