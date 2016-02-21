@@ -487,7 +487,9 @@ ul.list-style-none {
   top: 0;
   z-index: 1000;
   -webkit-box-shadow: 0 0 5px #cccccc;
-  box-shadow: 0 0 5px #cccccc;
+  /* box-shadow: 0 0 5px #cccccc; */
+  /* CUSTOMIZE */
+  box-shadow: 0 0 20px #000;
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
@@ -3385,8 +3387,7 @@ p {
 }
 @media (min-width: 768px) {
   .lead {
-    /* font-size: 21px; */
-    font-size: 40px;
+    font-size: 21px;
   }
 }
 .text-small {

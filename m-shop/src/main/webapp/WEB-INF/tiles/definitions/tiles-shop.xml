@@ -23,17 +23,24 @@
 	</definition>
 	
 	<!-- Products by category and manufacturer -->
-	<definition name="productsByCatAndManu" extends="master-layout">
+	<definition name="products-by-cat-manu" extends="master-layout">
 		<put-attribute name="title" value="MyEshop - Products" />
 		<put-attribute name="home-carousel" value="" />
-		<put-attribute name="content" value="/WEB-INF/views/shop/productsByCatAndManu.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/products-by-cat-manu.jsp" />
 	</definition>
 	
 	<!-- Products by category and manufacturer -->
-	<definition name="productsByCatAndPriceRange" extends="master-layout">
+	<definition name="products-by-cat-price-range" extends="master-layout">
 		<put-attribute name="title" value="MyEshop - Products" />
 		<put-attribute name="home-carousel" value="" />
-		<put-attribute name="content" value="/WEB-INF/views/shop/productsByCatAndPriceRange.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/products-by-cat-price-range.jsp" />
+	</definition>
+	
+	<!-- Product details -->
+	<definition name="product-details" extends="master-layout">
+		<put-attribute name="title" value="MyEshop - Product Details" />
+		<put-attribute name="home-carousel" value="" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/product-details.jsp" />
 	</definition>
 	
 </tiles-definitions>

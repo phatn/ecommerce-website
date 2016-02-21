@@ -1,5 +1,6 @@
 package com.manifera.meshop.shop.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,9 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.manifera.meshop.core.constant.Constant;
 import com.manifera.meshop.core.dao.common.Page;
 import com.manifera.meshop.core.domain.Product;
+import com.manifera.meshop.core.domain.ProductRelationship;
 import com.manifera.meshop.core.service.ProductPriceRangeService;
+import com.manifera.meshop.core.service.ProductRelationshipService;
 import com.manifera.meshop.core.service.ProductService;
 
 @Controller
@@ -28,6 +31,9 @@ public class ProductController {
 	@Autowired
 	private ProductPriceRangeService productPriceRangeService;
 	
+	@Autowired
+	private ProductRelationshipService productRelationshipService;
+	
 	@RequestMapping("/list/{categorySefUrl}/manufacturer/{manufacturerSefUrl}")
 	public String listProductsByCatAndManufacturer(Model model, HttpServletRequest request, 
 			@PathVariable("categorySefUrl") String categorySefUrl,
@@ -35,13 +41,13 @@ public class ProductController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		
 		Locale locale = RequestContextUtils.getLocale(request);
-		
 		Page<Product> productPage = productService.getByCatSefUrlAndManuSefUrl(categorySefUrl, 
 				manufacturerSefUrl, locale.getLanguage(), getOffsetFromPageNumber(page),  Constant.PAGE_SIZE);
+		
 		model.addAttribute("productPage", productPage);
 		model.addAttribute("currentPage", page);
 		
-		return "productsByCatAndManu";
+		return "products-by-cat-manu";
 	}
 	
 	@RequestMapping("/list/{categorySefUrl}/price-range/{priceRangeSefUrl}")
@@ -51,7 +57,6 @@ public class ProductController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		
 		Locale locale = RequestContextUtils.getLocale(request);
-		
 		Page<Product> productPage = productService.getByCatUrlAndPriceRange(categorySefUrl, 
 				productPriceRangeService.getBySefUrl(priceRangeSefUrl), locale.getLanguage(), 
 				getOffsetFromPageNumber(page), Constant.PAGE_SIZE);
@@ -59,7 +64,21 @@ public class ProductController {
 		model.addAttribute("productPage", productPage);
 		model.addAttribute("currentPage", page);
 		
-		return "productsByCatAndPriceRange";
+		return "products-by-cat-price-range";
+	}
+	
+	@RequestMapping("/details/{productSefUrl}")
+	public String showProductDetails(Model model, HttpServletRequest request, 
+			@PathVariable("productSefUrl") String productSefUrl) {
+		
+		Locale locale = RequestContextUtils.getLocale(request);
+		Product product = productService.getBySefUrl(productSefUrl, locale.getLanguage());
+		List<ProductRelationship> productRelationships = productRelationshipService.getProductRelationships(product);
+		
+		model.addAttribute("product", product);
+		model.addAttribute("productRelationships", productRelationships);
+		
+		return "product-details";
 	}
 	
 	private int getOffsetFromPageNumber(int page) {

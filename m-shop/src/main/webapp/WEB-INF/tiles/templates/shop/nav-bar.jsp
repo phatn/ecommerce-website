@@ -26,7 +26,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown active">
-                <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.home"/> <!-- <b class="caret"></b> --></a>
+                <a href="${contextPath}" class="dropdown-toggle"><spring:message code="label.nav-bar.home"/> <!-- <b class="caret"></b> --></a>
             </li>
             <li class="dropdown use-yamm yamm-fw">
                 <a href="<c:url value='/product/laptop' /> " class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.laptop"/> <b class="caret"></b></a>
@@ -52,10 +52,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <h5><spring:message code="label.nav-bar.price"/></h5>
-                                   <!--  <ul>
-                                        <li><a href="template-header-default.html">Default sticky header</a>
-                                        </li>
-                                    </ul> -->
+                                    
                                     <c:forEach items="${productPriceRanges}" var="priceRange">
                                      	<ul>
                                         	<li>
