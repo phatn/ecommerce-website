@@ -68,7 +68,8 @@ _________________________________________________________ -->
                     <div class="col-sm-6">
                         <div class="box">
 
-                            <form method="post" action="${contextPath}/cart/addToCart/${product.id}">
+                            <form method="post" action="${contextPath}cart/addToCart">
+                            	<input type="hidden" name="productId" value="${product.id}" />
                                <!--  <div class="sizes">
 
                                     <h3>Available sizes</h3>

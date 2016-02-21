@@ -20,7 +20,6 @@
 		<servlet.version>3.1.0</servlet.version>
 		<log4j.version>1.2.12</log4j.version>
 		<tiles.version>3.0.5</tiles.version>
-		<spring.security.version>4.0.3.RELEASE</spring.security.version>
 		<junit.version>4.11</junit.version>
 		<urlrewritefilter.version>4.0.4</urlrewritefilter.version>
 		<cglib.version>3.1</cglib.version>
@@ -59,28 +58,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
-		
-		<!-- Spring security -->
-		<!-- <dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>${spring.security.version}</version>
-		</dependency> -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${spring.security.version}</version>
-		</dependency> 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${spring.security.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring.security.version}</version>
 		</dependency>
 		
 		<!-- Spring aspect -->

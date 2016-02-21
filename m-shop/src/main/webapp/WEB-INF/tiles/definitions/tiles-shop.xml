@@ -43,4 +43,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/shop/product-details.jsp" />
 	</definition>
 	
+	<!-- Shopping cart -->
+	<definition name="shopping-cart" extends="master-layout">
+		<put-attribute name="title" value="MyEshop - Shopping cart" />
+		<put-attribute name="home-carousel" value="" />
+		<put-attribute name="content" value="/WEB-INF/views/shop/shopping-cart.jsp" />
+	</definition>
+	
 </tiles-definitions>
