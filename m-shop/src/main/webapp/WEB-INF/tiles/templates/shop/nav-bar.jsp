@@ -9,8 +9,8 @@
     <div class="navbar-header">
 		
         <a class="navbar-brand home" href="${contextPath}">
-            <img src="${contextPath}/resources/img/logo.png" alt="MyEshop Logo" class="hidden-xs hidden-sm">
-            <img src="${contextPath}/resources/img/logo.png" alt="MyEshop Logo" class="visible-xs visible-sm"><span class="sr-only">MyEshop - go to homepage</span>
+            <img src="<c:url value="/resources/img/logo.png"/>" alt="MyEshop Logo" class="hidden-xs hidden-sm">
+            <img src="<c:url value="/resources/img/logo.png"/>" alt="MyEshop Logo" class="visible-xs visible-sm"><span class="sr-only">MyEshop - go to homepage</span>
             <%-- <img src="<c:url value='/resources/img/logo-small.png' /> " alt="Universal logo" class="visible-xs visible-sm"><span class="sr-only">Universal - go to homepage</span> --%>
         </a>
         <div class="navbar-buttons">
@@ -29,7 +29,7 @@
                 <a href="${contextPath}" class="dropdown-toggle"><spring:message code="label.nav-bar.home"/> <!-- <b class="caret"></b> --></a>
             </li>
             <li class="dropdown use-yamm yamm-fw">
-                <a href="<c:url value='/product/laptop' /> " class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.laptop"/> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.laptop"/> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <div class="yamm-content">
@@ -43,9 +43,9 @@
                                         <li><a href="template-accordions.html">Accordions</a>
                                         </li>
                                     </ul> -->
-                                    <c:forEach items="${manufacturers}" var="manufacturer">
+                                    <c:forEach items="${laptopManufacturers}" var="laptopManufacturer">
                                      <ul>
-                                        <li><a href="<c:url value ='/product/list/laptop/manufacturer/${manufacturer.sefUrl}'/>">${manufacturer.name}</a>
+                                        <li><a href="<c:url value ='/product/list/laptop/manufacturer/${laptopManufacturer.sefUrl}'/>">${laptopManufacturer.name}</a>
                                         </li>
                                     </ul>
                                     </c:forEach>
@@ -76,6 +76,61 @@
                                         		</a>
                                         	</li>
                                     	</ul>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown use-yamm yamm-fw">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="label.nav-bar.desktop"/> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="yamm-content">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <img src="<c:url value='/resources/img/template-easy-customize.png' /> " class="img-responsive hidden-xs" alt="">
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5><spring:message code="label.nav-bar.top-brands"/></h5>
+                                    <!--   <ul>
+                                          <li><a href="template-accordions.html">Accordions</a>
+                                          </li>
+                                      </ul> -->
+                                    <c:forEach items="${desktopManufacturers}" var="desktopManufacturer">
+                                        <ul>
+                                            <li><a href="<c:url value ='/product/list/desktops/manufacturer/${desktopManufacturer.sefUrl}'/>">${desktopManufacturer.name}</a>
+                                            </li>
+                                        </ul>
+                                    </c:forEach>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5><spring:message code="label.nav-bar.price"/></h5>
+
+                                    <c:forEach items="${productPriceRanges}" var="priceRange">
+                                        <ul>
+                                            <li>
+                                                <a href="<c:url value = '/product/list/desktops/price-range/${priceRange.sefUrl}' /> ">
+                                                    <c:choose>
+                                                        <c:when test="${priceRange.min.unscaledValue() eq 0}">
+                                                            <spring:message code="label.nav-bar.below" />&nbsp;
+                                                            $<fmt:formatNumber pattern="#,##0" value="${priceRange.max}" type="number"/>
+                                                        </c:when>
+                                                        <c:when test="${empty priceRange.max}">
+                                                            <spring:message code="label.nav-bar.above" />&nbsp;
+                                                            $<fmt:formatNumber pattern="#,##0" value="${priceRange.min}" type="number" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <spring:message code="label.nav-bar.from" />&nbsp;
+                                                            $<fmt:formatNumber pattern="#,##0" value="${priceRange.min}" type="number" />&nbsp;
+                                                            <spring:message code="label.nav-bar.to" />&nbsp;
+                                                            $<fmt:formatNumber pattern="#,##0" value="${priceRange.max}" type="number" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </c:forEach>
                                 </div>
                             </div>

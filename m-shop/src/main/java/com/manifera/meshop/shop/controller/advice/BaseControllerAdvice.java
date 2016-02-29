@@ -21,7 +21,8 @@ public class BaseControllerAdvice {
 	
 	@ModelAttribute
     public void globalAttributes(Model model, HttpServletRequest request) {
-		model.addAttribute("manufacturers", manufacturerService.getManufacturersByCategoryName("Laptop"));
+		model.addAttribute("laptopManufacturers", manufacturerService.getManufacturersByCategoryName("Laptop"));
+        model.addAttribute("desktopManufacturers", manufacturerService.getManufacturersByCategoryName("Desktops"));
 		model.addAttribute("productPriceRanges", productPriceRangeService.getAllPriceRanges());
     }
 }
