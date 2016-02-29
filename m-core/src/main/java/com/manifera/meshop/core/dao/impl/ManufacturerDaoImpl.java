@@ -42,8 +42,8 @@ public class ManufacturerDaoImpl extends AbstractGenericDao<Manufacturer, Long> 
 		queryBuilder.append("select distinct m from Manufacturer m ");
 		queryBuilder.append("left join m.products p left join p.categories c ");
 		queryBuilder.append("left join c.descriptions cd ");
-		queryBuilder.append("where cd.name = :name or cd.name is null order by m.sortOrder asc");
-		
+		queryBuilder.append("where cd.name = :name order by m.sortOrder asc");
+
 		TypedQuery<Manufacturer> query = getEntityManager().createQuery(queryBuilder.toString(), Manufacturer.class);
 		query.setParameter("name", categoryName);
 		
